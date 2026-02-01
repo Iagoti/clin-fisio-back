@@ -1,0 +1,27 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: clin-fisio-postgres
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: clin_fisio
+      POSTGRES_USER: clin_fisio_user
+      POSTGRES_PASSWORD: clin_fisio_pass
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # scripts SQL opcionais
+      # - ./db/init:/docker-entrypoint-initdb.d
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U clin_fisio_user -d clin_fisio"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  pgdata:
