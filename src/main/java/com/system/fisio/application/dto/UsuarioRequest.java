@@ -11,7 +11,11 @@ public class UsuarioRequest {
     private String senha;
     private AtivoInativoEnum stUsuario;
     private TipoUsuario tipo;
-    private final LocalDateTime dataCadastro;
+    private LocalDateTime dataCadastro;
+
+    public UsuarioRequest() {
+        this.dataCadastro = LocalDateTime.now();
+    }
 
     public UsuarioRequest(
             String nome,

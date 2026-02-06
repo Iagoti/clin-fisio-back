@@ -2,6 +2,7 @@ package com.system.fisio.domain.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import tools.jackson.databind.JsonNode;
 import com.system.fisio.domain.exception.CodigoInvalidoException;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
@@ -27,17 +28,23 @@ public enum AtivoInativoEnum {
     }
 
     @JsonCreator
+    public static AtivoInativoEnum fromCodigo(JsonNode node) {
+        if (node == null || node.isNull()) {
+            return null;
+        }
+        int codigo = node.isNumber() ? node.asInt() : Integer.parseInt(node.asText());
+        return fromCodigo(Integer.valueOf(codigo));
+    }
+
     public static AtivoInativoEnum fromCodigo(Integer codigo) {
         if (codigo == null) {
             return null;
         }
-
         for (AtivoInativoEnum tipo : values()) {
             if (tipo.codigo == codigo) {
                 return tipo;
             }
         }
-
         throw new CodigoInvalidoException("Código inválido para AtivoInativo: " + codigo);
     }
 
