@@ -1,6 +1,5 @@
 package com.system.fisio.infrastructure.security;
 
-import com.system.fisio.application.service.JwtService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 

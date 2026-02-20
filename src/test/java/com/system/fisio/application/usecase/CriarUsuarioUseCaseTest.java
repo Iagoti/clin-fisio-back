@@ -46,7 +46,6 @@ class CriarUsuarioUseCaseTest {
 
     @BeforeEach
     void setup() {
-        // Define um Authentication com autoridade ROLE_ADM para que o use case permita criar usuários nos testes
         var auth = new UsernamePasswordAuthenticationToken(
                 "test",
                 null,

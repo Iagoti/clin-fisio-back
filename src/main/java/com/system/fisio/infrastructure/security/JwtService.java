@@ -1,4 +1,4 @@
-package com.system.fisio.application.service;
+package com.system.fisio.infrastructure.security;
 
 import com.system.fisio.application.ports.ITokenService;
 import com.system.fisio.domain.enums.TipoUsuario;
@@ -29,14 +29,11 @@ public class JwtService implements ITokenService {
     public String gerarToken(Integer cdUsuario, String login, Integer tpUsuario) {
         Instant now = Instant.now();
         Instant exp = now.plusSeconds(expMinutes * 60);
-
-        // Deriva a role a partir do código do tipo de usuário, adicionando prefixo ROLE_ para compatibilidade Spring Security
         String role = null;
         try {
             TipoUsuario tipo = TipoUsuario.fromCodigo(tpUsuario);
             role = "ROLE_" + tipo.name();
         } catch (Exception e) {
-            // fallback: role permanece null
         }
 
         if (role == null) {

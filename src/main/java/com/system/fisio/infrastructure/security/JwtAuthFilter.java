@@ -1,7 +1,6 @@
 package com.system.fisio.infrastructure.security;
 
 import com.system.fisio.application.ports.ITokenService;
-import com.system.fisio.application.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

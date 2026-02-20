@@ -1,7 +1,7 @@
 package com.system.fisio.infrastructure.config;
 
 import com.system.fisio.infrastructure.security.JwtAuthFilter;
-import com.system.fisio.application.service.JwtService;
+import com.system.fisio.infrastructure.security.JwtService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
