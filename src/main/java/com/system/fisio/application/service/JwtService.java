@@ -25,13 +25,13 @@ public class JwtService implements ITokenService {
         this.expMinutes = expMinutes;
     }
 
-    public String gerarToken(Integer cdUsuario, String login, String role) {
+    public String gerarToken(Integer cdUsuario, String login, Integer tpUsuario) {
         Instant now = Instant.now();
         Instant exp = now.plusSeconds(expMinutes * 60);
 
         return Jwts.builder()
                 .subject(login)
-                .claims(Map.of("cdUsuario", cdUsuario, "role", role))
+                .claims(Map.of("cdUsuario", cdUsuario, "tpUsuario", tpUsuario))
                 .issuedAt(Date.from(now))
                 .expiration(Date.from(exp))
                 .signWith(key)

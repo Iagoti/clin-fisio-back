@@ -33,13 +33,13 @@ public class AutenticarUsuarioUseCase {
         if (!passwordEncoder.matches(req.senha(), usuario.getSenha())) {
             throw new UsuarioException("Login ou senha inválidos");
         }
-        String role = "TP_USUARIO_" + usuario.getTpUsuario().name();
+        Integer tpUsuario = usuario.getTpUsuario().getCodigo();
         String token = jwtService.gerarToken(
                 usuario.getCdUsuario(),
                 usuario.getLogin(),
-                role
+                tpUsuario
         );
-        return new LoginResponse(token, usuario.getTpUsuario().name(), usuario.getCdUsuario(), usuario.getNmUsuario());
+        return new LoginResponse(token, usuario.getTpUsuario().getCodigo(), usuario.getCdUsuario(), usuario.getNmUsuario());
     }
 
 }
