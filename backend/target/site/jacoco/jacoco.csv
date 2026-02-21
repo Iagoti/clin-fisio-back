@@ -1,0 +1,26 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+Clin Fisio,com.system.fisio.domain.enums,TipoUsuario,63,30,12,0,13,7,11,2,5,2
+Clin Fisio,com.system.fisio.domain.enums,AtivoInativoEnum,63,30,12,0,13,7,11,2,5,2
+Clin Fisio,com.system.fisio.application.mapper,UsuarioMapper,33,3,0,0,14,1,2,1,2,1
+Clin Fisio,com.system.fisio,ClinFisioApplication,5,3,0,0,2,1,1,1,1,1
+Clin Fisio,com.system.fisio.domain.model,Usuario,9,108,3,13,3,28,6,15,3,10
+Clin Fisio,com.system.fisio.application.dto,UsuarioResponse,66,0,0,0,27,0,14,0,14,0
+Clin Fisio,com.system.fisio.application.dto,UsuarioRequest,33,42,0,0,16,15,8,7,8,7
+Clin Fisio,com.system.fisio.application.dto,LoginResponse,15,0,0,0,1,0,1,0,1,0
+Clin Fisio,com.system.fisio.application.dto,LoginRequest,9,0,0,0,1,0,1,0,1,0
+Clin Fisio,com.system.fisio.domain.exception,CodigoInvalidoException,4,0,0,0,2,0,1,0,1,0
+Clin Fisio,com.system.fisio.domain.exception,AcessoNegadoException,4,0,0,0,2,0,1,0,1,0
+Clin Fisio,com.system.fisio.domain.exception,UsuarioException,0,4,0,0,0,2,0,1,0,1
+Clin Fisio,com.system.fisio.infrastructure.persistence.entity,UsuarioEntity,52,3,0,0,19,2,10,1,10,1
+Clin Fisio,com.system.fisio.infrastructure.security,JwtAuthFilter,54,6,8,0,13,3,5,1,1,1
+Clin Fisio,com.system.fisio.infrastructure.security,JwtConfig,9,0,0,0,2,0,2,0,2,0
+Clin Fisio,com.system.fisio.infrastructure.security,JwtService,107,12,4,0,31,4,6,1,4,1
+Clin Fisio,com.system.fisio.infrastructure.security,SecurityBeansConfig,0,7,0,0,0,2,0,2,0,2
+Clin Fisio,com.system.fisio.infrastructure.apresentation.controller,UsuarioController,33,9,0,0,13,4,2,1,2,1
+Clin Fisio,com.system.fisio.infrastructure.apresentation.controller,AuthController,6,6,0,0,1,3,1,1,1,1
+Clin Fisio,com.system.fisio.infrastructure.config,SecurityConfig,0,54,0,0,0,10,0,5,0,5
+Clin Fisio,com.system.fisio.infrastructure.persistence.repository,UsuarioRepositoryImpl,41,9,0,0,8,4,3,1,3,1
+Clin Fisio,com.system.fisio.infrastructure.persistence.mapper,UsuarioPersistenceMapper,48,3,0,0,18,1,2,1,2,1
+Clin Fisio,com.system.fisio.application.usecase,BuscarTodosUsuariosUseCase,24,6,0,0,9,3,2,1,2,1
+Clin Fisio,com.system.fisio.application.usecase,CriarUsuarioUseCase,8,83,2,2,3,22,2,4,0,4
+Clin Fisio,com.system.fisio.application.usecase,AutenticarUsuarioUseCase,56,12,2,0,10,5,3,1,2,1

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Usuario.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Clin Fisio</a> &gt; <a href="index.source.html" class="el_package">com.system.fisio.domain.model</a> &gt; <span class="el_source">Usuario.java</span></div><h1>Usuario.java</h1><pre class="source lang-java linenums">package com.system.fisio.domain.model;
+
+import com.system.fisio.domain.enums.AtivoInativoEnum;
+import com.system.fisio.domain.enums.TipoUsuario;
+import com.system.fisio.domain.exception.UsuarioException;
+import java.time.LocalDateTime;
+
+public class Usuario {
+
+    private Integer cdUsuario;
+    private String nmUsuario;
+    private String email;
+    private String login;
+    private String senha;
+    private TipoUsuario tpUsuario;
+    private AtivoInativoEnum stUsuario;
+    private final LocalDateTime dataCadastro;
+
+    public Usuario(
+            Integer cdUsuario,
+            String nmUsuario,
+            String email,
+            String login,
+            String senha,
+            TipoUsuario tpUsuario,
+            AtivoInativoEnum stUsuario
+            
+<span class="fc" id="L28">    ) {</span>
+<span class="fc" id="L29">        this.cdUsuario = cdUsuario;</span>
+<span class="fc" id="L30">        this.nmUsuario = nmUsuario;</span>
+<span class="fc" id="L31">        this.email = email;</span>
+<span class="fc" id="L32">        this.login = login;</span>
+<span class="fc" id="L33">        this.senha = senha;</span>
+<span class="fc" id="L34">        this.tpUsuario = tpUsuario;</span>
+<span class="fc" id="L35">        this.stUsuario = AtivoInativoEnum.ATIVO;</span>
+<span class="fc" id="L36">        this.dataCadastro = LocalDateTime.now();</span>
+<span class="fc" id="L37">        validar();</span>
+<span class="fc" id="L38">    }</span>
+
+    public void validarUsuarioAtivo() {
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        if(!this.stUsuario.equals(AtivoInativoEnum.ATIVO)) {</span>
+<span class="fc" id="L42">            throw new UsuarioException(&quot;Usuário inativo.&quot;);</span>
+        }
+<span class="fc" id="L44">    }</span>
+
+    private void validar() {
+<span class="pc bpc" id="L47" title="1 of 4 branches missed.">        if (nmUsuario == null || nmUsuario.isBlank()) throw new UsuarioException(&quot;Nome obrigatório&quot;);</span>
+<span class="pc bpc" id="L48" title="1 of 4 branches missed.">        if (login == null || login.isBlank()) throw new UsuarioException(&quot;Login obrigatório&quot;);</span>
+<span class="pc bpc" id="L49" title="1 of 4 branches missed.">        if (senha == null || senha.isBlank()) throw new UsuarioException(&quot;Senha obrigatória&quot;);</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        if (tpUsuario == null) throw new UsuarioException(&quot;Tipo de usuário obrigatório&quot;);</span>
+<span class="fc" id="L51">    }</span>
+
+    public void inativar() {
+<span class="fc" id="L54">        this.stUsuario = AtivoInativoEnum.INATIVO;</span>
+<span class="fc" id="L55">    }</span>
+
+    public void ativar() {
+<span class="fc" id="L58">        this.stUsuario = AtivoInativoEnum.ATIVO;</span>
+<span class="fc" id="L59">    }</span>
+
+    public Integer getCdUsuario() {
+<span class="nc" id="L62">        return cdUsuario;</span>
+    }
+
+    public String getNmUsuario() {
+<span class="fc" id="L66">        return nmUsuario;</span>
+    }
+
+    public String getEmail() {
+<span class="nc" id="L70">        return email;</span>
+    }
+
+    public String getLogin() {
+<span class="fc" id="L74">        return login;</span>
+    }
+
+    public String getSenha() {
+<span class="nc" id="L78">        return senha;</span>
+    }
+
+    public AtivoInativoEnum getStUsuario() {
+<span class="fc" id="L82">        return stUsuario;</span>
+    }
+
+    public TipoUsuario getTpUsuario() {
+<span class="fc" id="L86">        return tpUsuario;</span>
+    }
+
+    public LocalDateTime getDataCadastro() {
+<span class="fc" id="L90">        return dataCadastro;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
