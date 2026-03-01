@@ -1,5 +1,6 @@
 package com.system.fisio.infrastructure.apresentation.controller;
 
+import com.system.fisio.application.dto.UsuarioFiltro;
 import com.system.fisio.application.dto.UsuarioRequest;
 import com.system.fisio.application.dto.UsuarioResponse;
 import com.system.fisio.application.usecase.BuscarTodosUsuariosUseCase;
@@ -63,7 +64,11 @@ public class UsuarioController {
             }
     )
     @GetMapping
-    public ResponseEntity<List<UsuarioResponse>> findAll() {
-        return ResponseEntity.ok(buscarTodosUsuariosUseCase.execute());
+    public ResponseEntity<List<UsuarioResponse>> findAll(
+            @RequestParam(required = false) String nmUsuario,
+            @RequestParam(required = false, defaultValue = "1") Integer usuarioAtivo
+    ) {
+        UsuarioFiltro filtros = new UsuarioFiltro(nmUsuario, usuarioAtivo);
+        return ResponseEntity.ok(buscarTodosUsuariosUseCase.execute(filtros));
     }
 }

@@ -1,5 +1,6 @@
 package com.system.fisio.application.usecase;
 
+import com.system.fisio.application.dto.UsuarioFiltro;
 import com.system.fisio.application.dto.UsuarioResponse;
 import com.system.fisio.domain.ports.IUsuarioRepository;
 import org.springframework.stereotype.Component;
@@ -15,16 +16,7 @@ public class BuscarTodosUsuariosUseCase {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public List<UsuarioResponse> execute(){
-        return usuarioRepository.findAll().stream()
-                .map(usuario -> new UsuarioResponse(
-                        usuario.getNmUsuario(),
-                        usuario.getEmail(),
-                        usuario.getLogin(),
-                        usuario.getStUsuario(),
-                        usuario.getTpUsuario(),
-                        usuario.getDataCadastro()
-                ))
-                .toList();
+    public List<UsuarioResponse> execute(UsuarioFiltro filtro) {
+        return usuarioRepository.findAllByFiltro(filtro).stream().toList();
     }
 }

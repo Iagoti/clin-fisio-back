@@ -5,7 +5,8 @@ import com.system.fisio.domain.enums.AtivoInativoEnum;
 import com.system.fisio.domain.enums.TipoUsuario;
 
 public class UsuarioResponse {
-    
+
+    private Integer cdUsuario;
     private String nmUsuario;
     private String email;
     private String login;
@@ -15,14 +16,23 @@ public class UsuarioResponse {
 
     public UsuarioResponse() { }
 
-    public UsuarioResponse(String nmUsuario, String email, String login, AtivoInativoEnum stUsuario,
+    public UsuarioResponse(Integer cdUsuario, String nmUsuario, String email, String login, AtivoInativoEnum stUsuario,
             TipoUsuario tpUsuario, LocalDateTime dtCadastro) {
+        this.cdUsuario = cdUsuario;
         this.nmUsuario = nmUsuario;
         this.email = email;
         this.login = login;
         this.stUsuario = stUsuario;
         this.tpUsuario = tpUsuario;
         this.dtCadastro = dtCadastro;
+    }
+
+    public Integer getCdUsuario() {
+        return cdUsuario;
+    }
+
+    public void setCdUsuario(Integer cdUsuario) {
+        this.cdUsuario = cdUsuario;
     }
 
     public String getNmUsuario() {

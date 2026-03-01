@@ -23,6 +23,7 @@ public class UsuarioMapper {
 
     public UsuarioResponse toResponse(Usuario usuario) {
         return new UsuarioResponse(
+                usuario.getCdUsuario(),
                 usuario.getNmUsuario(),
                 usuario.getEmail(),
                 usuario.getLogin(),
