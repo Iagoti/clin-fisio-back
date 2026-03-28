@@ -35,10 +35,11 @@ public class CriarUsuarioUseCase {
                 throw new AcessoNegadoException("Acesso negado: você não tem permissão para cadastrar usuários");
             }
 
-            usuarioRepository.findByEmail(usuarioRequest.getEmail()).ifPresent(usuario -> {
+            if (usuarioRepository.findByEmail(usuarioRequest.getEmail()).isPresent()) {
                 throw new UsuarioException("Usuário já cadastrado");
-            });
+            }
             UsuarioRequest requestEncodedPassword = new UsuarioRequest(
+                    usuarioRequest.getCdUsuario(),
                     usuarioRequest.getNome(),
                     usuarioRequest.getEmail(),
                     usuarioRequest.getLogin(),
@@ -51,7 +52,7 @@ public class CriarUsuarioUseCase {
         } catch (AcessoNegadoException ade) {
             throw ade;
         } catch (UsuarioException ue) {
-            throw ue;
+            throw new UsuarioException("Erro ao criar usuário: " + ue.getMessage());
         } catch (Exception e) {
             throw new UsuarioException("Erro ao criar usuário: " + e.getMessage());
         }

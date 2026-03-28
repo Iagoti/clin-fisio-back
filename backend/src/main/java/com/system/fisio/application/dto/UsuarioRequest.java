@@ -5,6 +5,7 @@ import com.system.fisio.domain.enums.TipoUsuario;
 import java.time.LocalDateTime;
 
 public class UsuarioRequest {
+    private Integer cdUsuario;
     private String nome;
     private String email;
     private String login;
@@ -18,6 +19,7 @@ public class UsuarioRequest {
     }
 
     public UsuarioRequest(
+            Integer cdUsuario,
             String nome,
             String email,
             String login,
@@ -25,6 +27,7 @@ public class UsuarioRequest {
             AtivoInativoEnum stUsuario,
             TipoUsuario tipo
     ) {
+        this.cdUsuario = cdUsuario;
         this.nome = nome;
         this.email = email;
         this.login = login;
@@ -32,6 +35,14 @@ public class UsuarioRequest {
         this.stUsuario = stUsuario;
         this.tipo = tipo;
         this.dataCadastro = LocalDateTime.now();
+    }
+
+    public Integer getCdUsuario() {
+        return cdUsuario;
+    }
+
+    public void setCdUsuario(Integer cdUsuario) {
+        this.cdUsuario = cdUsuario;
     }
 
     public String getNome() {

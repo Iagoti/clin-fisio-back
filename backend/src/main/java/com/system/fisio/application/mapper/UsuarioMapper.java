@@ -11,7 +11,7 @@ public class UsuarioMapper {
 
     public Usuario toDomain(UsuarioRequest usuarioRequest) {
         return new Usuario(
-                null,
+                usuarioRequest.getCdUsuario(),
                 usuarioRequest.getNome(),
                 usuarioRequest.getEmail(),
                 usuarioRequest.getLogin(),
