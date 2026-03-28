@@ -54,6 +54,7 @@ class CriarUsuarioUseCaseTest {
         SecurityContextHolder.getContext().setAuthentication(auth);
 
         request = new UsuarioRequest(
+                null,
                 "João Silva",
                 "joao@email.com",
                 "joao",
