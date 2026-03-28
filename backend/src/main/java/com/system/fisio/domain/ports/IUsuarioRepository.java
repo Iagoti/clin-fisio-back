@@ -12,4 +12,5 @@ public interface IUsuarioRepository {
     Usuario save(Usuario usuario);
     List<Usuario> findAll();
     List<UsuarioResponse> findAllByFiltro(UsuarioFiltro filtro);
+    Optional<Usuario> findById(Integer cdUsuario);
 }

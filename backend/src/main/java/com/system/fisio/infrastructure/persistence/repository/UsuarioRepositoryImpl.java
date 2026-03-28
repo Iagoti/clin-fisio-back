@@ -80,4 +80,10 @@ public class UsuarioRepositoryImpl implements IUsuarioRepository {
                 }
         );
     }
+
+    @Override
+    public Optional<Usuario> findById(Integer cdUsuario) {
+        return jpaRepository.findById(cdUsuario)
+                .map(mapper::toDomain);
+    }
 }
