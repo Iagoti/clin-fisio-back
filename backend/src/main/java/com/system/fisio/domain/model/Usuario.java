@@ -46,7 +46,7 @@ public class Usuario {
     private void validar() {
         if (nmUsuario == null || nmUsuario.isBlank()) throw new UsuarioException("Nome obrigatório");
         if (login == null || login.isBlank()) throw new UsuarioException("Login obrigatório");
-        if (senha == null || senha.isBlank()) throw new UsuarioException("Senha obrigatória");
+        if (cdUsuario == null && (senha == null || senha.isBlank())) throw new UsuarioException("Senha obrigatória");
         if (tpUsuario == null) throw new UsuarioException("Tipo de usuário obrigatório");
     }
 

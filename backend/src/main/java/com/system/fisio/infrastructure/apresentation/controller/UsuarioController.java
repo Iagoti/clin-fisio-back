@@ -3,6 +3,7 @@ package com.system.fisio.infrastructure.apresentation.controller;
 import com.system.fisio.application.dto.UsuarioFiltro;
 import com.system.fisio.application.dto.UsuarioRequest;
 import com.system.fisio.application.dto.UsuarioResponse;
+import com.system.fisio.application.usecase.AtualizarUsuarioUseCase;
 import com.system.fisio.application.usecase.BuscarTodosUsuariosUseCase;
 import com.system.fisio.application.usecase.BuscarUsuarioByIdUseCase;
 import com.system.fisio.application.usecase.CriarUsuarioUseCase;
@@ -26,15 +27,18 @@ public class UsuarioController {
     private final CriarUsuarioUseCase criarUsuarioUseCase;
     private final BuscarTodosUsuariosUseCase buscarTodosUsuariosUseCase;
     private final BuscarUsuarioByIdUseCase buscarUsuarioByIdUseCase;
+    private final AtualizarUsuarioUseCase atualizarUsuarioUseCase;
 
     public UsuarioController(
             CriarUsuarioUseCase criarUsuarioUseCase,
             BuscarTodosUsuariosUseCase buscarTodosUsuariosUseCase,
-            BuscarUsuarioByIdUseCase buscarUsuarioByIdUseCase
+            BuscarUsuarioByIdUseCase buscarUsuarioByIdUseCase,
+            AtualizarUsuarioUseCase atualizarUsuarioUseCase
     ) {
         this.criarUsuarioUseCase = criarUsuarioUseCase;
         this.buscarTodosUsuariosUseCase = buscarTodosUsuariosUseCase;
         this.buscarUsuarioByIdUseCase = buscarUsuarioByIdUseCase;
+        this.atualizarUsuarioUseCase = atualizarUsuarioUseCase;
     }
 
     @Operation(
@@ -91,5 +95,23 @@ public class UsuarioController {
     @GetMapping("/{cdUsuario}")
     public ResponseEntity<UsuarioResponse> findById(@PathVariable Integer cdUsuario) {
         return ResponseEntity.ok(buscarUsuarioByIdUseCase.execute(cdUsuario));
+    }
+
+    @Operation(
+            summary = "Atualizar usuário",
+            description = "Atualiza um usuário do sistema.",
+            security = { @SecurityRequirement(name = "bearerAuth") },
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Usuário atualizado com sucesso",
+                            content = @Content(schema = @Schema(implementation = UsuarioResponse.class))),
+                    @ApiResponse(responseCode = "401", description = "Não autenticado", content = @Content),
+                    @ApiResponse(responseCode = "403", description = "Sem permissão", content = @Content),
+                    @ApiResponse(responseCode = "500", description = "Erro interno", content = @Content)
+            }
+    )
+    @PostMapping("/update")
+    public ResponseEntity<UsuarioResponse> update(@Valid @RequestBody UsuarioRequest usuarioRequest) {
+        UsuarioResponse response = atualizarUsuarioUseCase.execute(usuarioRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }
