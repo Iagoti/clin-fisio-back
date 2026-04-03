@@ -103,7 +103,7 @@ class UsuarioTest {
     @DisplayName("Deve lançar exceção quando senha for nula")
     void deveFalharQuandoSenhaNula() {
         assertThrows(UsuarioException.class, () ->
-                new Usuario(1, "João", "email@email.com", "login", null, TipoUsuario.ADM, AtivoInativoEnum.ATIVO)
+                new Usuario(null, "João", "email@email.com", "login", null, TipoUsuario.ADM, AtivoInativoEnum.ATIVO)
         );
     }
 
