@@ -32,7 +32,7 @@ public class Usuario {
         this.login = login;
         this.senha = senha;
         this.tpUsuario = tpUsuario;
-        this.stUsuario = AtivoInativoEnum.ATIVO;
+        this.stUsuario = stUsuario;
         this.dataCadastro = LocalDateTime.now();
         validar();
     }

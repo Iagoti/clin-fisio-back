@@ -1,12 +1,15 @@
 /Users/iago/Documents/GitHub/clin-fisio/backend/src/main/java/com/system/fisio/ClinFisioApplication.java
 /Users/iago/Documents/GitHub/clin-fisio/backend/src/main/java/com/system/fisio/application/dto/LoginRequest.java
 /Users/iago/Documents/GitHub/clin-fisio/backend/src/main/java/com/system/fisio/application/dto/LoginResponse.java
+/Users/iago/Documents/GitHub/clin-fisio/backend/src/main/java/com/system/fisio/application/dto/UsuarioFiltro.java
 /Users/iago/Documents/GitHub/clin-fisio/backend/src/main/java/com/system/fisio/application/dto/UsuarioRequest.java
 /Users/iago/Documents/GitHub/clin-fisio/backend/src/main/java/com/system/fisio/application/dto/UsuarioResponse.java
 /Users/iago/Documents/GitHub/clin-fisio/backend/src/main/java/com/system/fisio/application/mapper/UsuarioMapper.java
 /Users/iago/Documents/GitHub/clin-fisio/backend/src/main/java/com/system/fisio/application/ports/ITokenService.java
+/Users/iago/Documents/GitHub/clin-fisio/backend/src/main/java/com/system/fisio/application/usecase/AtualizarUsuarioUseCase.java
 /Users/iago/Documents/GitHub/clin-fisio/backend/src/main/java/com/system/fisio/application/usecase/AutenticarUsuarioUseCase.java
 /Users/iago/Documents/GitHub/clin-fisio/backend/src/main/java/com/system/fisio/application/usecase/BuscarTodosUsuariosUseCase.java
+/Users/iago/Documents/GitHub/clin-fisio/backend/src/main/java/com/system/fisio/application/usecase/BuscarUsuarioByIdUseCase.java
 /Users/iago/Documents/GitHub/clin-fisio/backend/src/main/java/com/system/fisio/application/usecase/CriarUsuarioUseCase.java
 /Users/iago/Documents/GitHub/clin-fisio/backend/src/main/java/com/system/fisio/domain/enums/AtivoInativoEnum.java
 /Users/iago/Documents/GitHub/clin-fisio/backend/src/main/java/com/system/fisio/domain/enums/TipoUsuario.java
@@ -20,8 +23,11 @@
 /Users/iago/Documents/GitHub/clin-fisio/backend/src/main/java/com/system/fisio/infrastructure/config/SecurityConfig.java
 /Users/iago/Documents/GitHub/clin-fisio/backend/src/main/java/com/system/fisio/infrastructure/persistence/entity/UsuarioEntity.java
 /Users/iago/Documents/GitHub/clin-fisio/backend/src/main/java/com/system/fisio/infrastructure/persistence/mapper/UsuarioPersistenceMapper.java
+/Users/iago/Documents/GitHub/clin-fisio/backend/src/main/java/com/system/fisio/infrastructure/persistence/query/QueryResult.java
+/Users/iago/Documents/GitHub/clin-fisio/backend/src/main/java/com/system/fisio/infrastructure/persistence/query/UsuarioQuery.java
 /Users/iago/Documents/GitHub/clin-fisio/backend/src/main/java/com/system/fisio/infrastructure/persistence/repository/UsuarioJpaRepository.java
 /Users/iago/Documents/GitHub/clin-fisio/backend/src/main/java/com/system/fisio/infrastructure/persistence/repository/UsuarioRepositoryImpl.java
+/Users/iago/Documents/GitHub/clin-fisio/backend/src/main/java/com/system/fisio/infrastructure/ports/IUsuarioQuery.java
 /Users/iago/Documents/GitHub/clin-fisio/backend/src/main/java/com/system/fisio/infrastructure/security/JwtAuthFilter.java
 /Users/iago/Documents/GitHub/clin-fisio/backend/src/main/java/com/system/fisio/infrastructure/security/JwtConfig.java
 /Users/iago/Documents/GitHub/clin-fisio/backend/src/main/java/com/system/fisio/infrastructure/security/JwtService.java
