@@ -7,3 +7,4 @@ public abstract class BusinessException extends RuntimeException {
     }
 
 }
+
