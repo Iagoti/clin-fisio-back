@@ -11,6 +11,7 @@
 /Users/iago/Documents/GitHub/clin-fisio/clin-fisio-back/backend/src/main/java/com/system/fisio/application/usecase/BuscarTodosUsuariosUseCase.java
 /Users/iago/Documents/GitHub/clin-fisio/clin-fisio-back/backend/src/main/java/com/system/fisio/application/usecase/BuscarUsuarioByIdUseCase.java
 /Users/iago/Documents/GitHub/clin-fisio/clin-fisio-back/backend/src/main/java/com/system/fisio/application/usecase/CriarUsuarioUseCase.java
+/Users/iago/Documents/GitHub/clin-fisio/clin-fisio-back/backend/src/main/java/com/system/fisio/application/usecase/DeletarUsuarioUseCase.java
 /Users/iago/Documents/GitHub/clin-fisio/clin-fisio-back/backend/src/main/java/com/system/fisio/domain/enums/AtivoInativoEnum.java
 /Users/iago/Documents/GitHub/clin-fisio/clin-fisio-back/backend/src/main/java/com/system/fisio/domain/enums/TipoUsuario.java
 /Users/iago/Documents/GitHub/clin-fisio/clin-fisio-back/backend/src/main/java/com/system/fisio/domain/exception/AcessoNegadoException.java

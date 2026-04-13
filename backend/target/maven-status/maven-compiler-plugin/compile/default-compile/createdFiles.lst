@@ -30,6 +30,7 @@ com/system/fisio/application/dto/UsuarioFiltro.class
 com/system/fisio/application/dto/UsuarioResponse.class
 com/system/fisio/infrastructure/security/SecurityBeansConfig.class
 com/system/fisio/application/usecase/BuscarTodosUsuariosUseCase.class
+com/system/fisio/application/usecase/DeletarUsuarioUseCase.class
 com/system/fisio/application/dto/LoginResponse.class
 com/system/fisio/infrastructure/apresentation/controller/AuthController.class
 com/system/fisio/infrastructure/persistence/query/UsuarioQuery.class

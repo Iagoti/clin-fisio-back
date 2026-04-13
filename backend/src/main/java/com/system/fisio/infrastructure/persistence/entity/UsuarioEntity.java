@@ -27,7 +27,7 @@ public class UsuarioEntity {
     @Column(name = "login")
     private String login;
 
-    @Column(name = "ds_senha_hash", nullable = false)
+    @Column(name = "ds_senha_hash")
     private String senha;
 
     @Column(name = "tp_usuario")

@@ -86,4 +86,9 @@ public class UsuarioRepositoryImpl implements IUsuarioRepository {
         return jpaRepository.findById(cdUsuario)
                 .map(mapper::toDomain);
     }
+
+    @Override
+    public void deleteById(Integer cdUsuario) {
+        jpaRepository.deleteById(cdUsuario);
+    }
 }
