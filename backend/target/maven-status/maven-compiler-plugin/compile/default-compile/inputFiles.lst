@@ -1,4 +1,5 @@
 /Users/iago/Documents/GitHub/clin-fisio/clin-fisio-back/backend/src/main/java/com/system/fisio/ClinFisioApplication.java
+/Users/iago/Documents/GitHub/clin-fisio/clin-fisio-back/backend/src/main/java/com/system/fisio/application/dto/DeleteUsuarioResponse.java
 /Users/iago/Documents/GitHub/clin-fisio/clin-fisio-back/backend/src/main/java/com/system/fisio/application/dto/LoginRequest.java
 /Users/iago/Documents/GitHub/clin-fisio/clin-fisio-back/backend/src/main/java/com/system/fisio/application/dto/LoginResponse.java
 /Users/iago/Documents/GitHub/clin-fisio/clin-fisio-back/backend/src/main/java/com/system/fisio/application/dto/UsuarioFiltro.java
