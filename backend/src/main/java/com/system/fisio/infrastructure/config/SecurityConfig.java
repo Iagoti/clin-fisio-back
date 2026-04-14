@@ -28,7 +28,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers("/usuario", "/usuario/**").hasAuthority("ROLE_ADM")
+                        .requestMatchers(HttpMethod.POST, "/usuario/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/usuario/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(new JwtAuthFilter(jwtService), UsernamePasswordAuthenticationFilter.class)

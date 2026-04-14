@@ -84,3 +84,5 @@ Thumbs.db
 *.swp
 *.swo
 *.bak
+backend/target/classes/com/system/fisio/infrastructure/security/JwtConfig.class
+/backend/target

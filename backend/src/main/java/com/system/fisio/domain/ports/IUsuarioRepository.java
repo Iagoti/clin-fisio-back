@@ -13,4 +13,5 @@ public interface IUsuarioRepository {
     List<Usuario> findAll();
     List<UsuarioResponse> findAllByFiltro(UsuarioFiltro filtro);
     Optional<Usuario> findById(Integer cdUsuario);
+    void deleteById(Integer cdUsuario);
 }
