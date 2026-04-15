@@ -29,33 +29,23 @@ public class CriarUsuarioUseCase {
     }
 
     public UsuarioResponse execute(UsuarioRequest usuarioRequest) {
-        try {
-            var auth = SecurityContextHolder.getContext().getAuthentication();
-            if (auth == null || auth.getAuthorities().stream().noneMatch(a -> "ROLE_ADM".equals(a.getAuthority()))) {
-                throw new AcessoNegadoException("Acesso negado: você não tem permissão para cadastrar usuários");
-            }
-
-            if (usuarioRepository.findByEmail(usuarioRequest.getEmail()).isPresent()) {
-                throw new UsuarioException("Usuário já cadastrado");
-            }
-            UsuarioRequest requestEncodedPassword = new UsuarioRequest(
-                    usuarioRequest.getCdUsuario(),
-                    usuarioRequest.getNome(),
-                    usuarioRequest.getEmail(),
-                    usuarioRequest.getLogin(),
-                    passwordEncoder.encode(usuarioRequest.getSenha()),
-                    usuarioRequest.getStUsuario(),
-                    usuarioRequest.getTipo()
-            );
-            Usuario usuario = usuarioRepository.save(usuarioMapper.toDomain(requestEncodedPassword));
-            return usuarioMapper.toResponse(usuario);
-        } catch (AcessoNegadoException ade) {
-            throw ade;
-        } catch (UsuarioException ue) {
-            throw new UsuarioException("Erro ao criar usuário: " + ue.getMessage());
-        } catch (Exception e) {
-            throw new UsuarioException("Erro ao criar usuário: " + e.getMessage());
+        var auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null || auth.getAuthorities().stream().noneMatch(a -> "ROLE_ADM".equals(a.getAuthority()))) {
+            throw new AcessoNegadoException("Acesso negado: você não tem permissão para cadastrar usuários");
         }
+        if (usuarioRepository.findByEmail(usuarioRequest.getEmail()).isPresent()) {
+            throw new UsuarioException("Usuário já cadastrado");
+        }
+        UsuarioRequest requestEncodedPassword = new UsuarioRequest(
+                usuarioRequest.getCdUsuario(),
+                usuarioRequest.getNome(),
+                usuarioRequest.getEmail(),
+                usuarioRequest.getLogin(),
+                passwordEncoder.encode(usuarioRequest.getSenha()),
+                usuarioRequest.getStUsuario(),
+                usuarioRequest.getTipo()
+        );
+        Usuario usuario = usuarioRepository.save(usuarioMapper.toDomain(requestEncodedPassword));
+        return usuarioMapper.toResponse(usuario);
     }
-
 }

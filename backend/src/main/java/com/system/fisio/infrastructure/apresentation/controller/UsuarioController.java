@@ -24,7 +24,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Tag(name = "Usuários", description = "Endpoints de gerenciamento de usuários")
 @RestController
@@ -63,9 +62,23 @@ public class UsuarioController {
             }
     )
     @PostMapping
-    public ResponseEntity<UsuarioResponse> create(@Valid @RequestBody UsuarioRequest usuarioRequest) {
-        UsuarioResponse response = criarUsuarioUseCase.execute(usuarioRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    public ResponseEntity<?> create(@Valid @RequestBody UsuarioRequest usuarioRequest) {
+        try {
+            UsuarioResponse response = criarUsuarioUseCase.execute(usuarioRequest);
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } catch (BusinessException ex) {
+            ErrorResponse error = new ErrorResponse(
+                    ex.getMessage(),
+                    LocalDateTime.now()
+            );
+            return ResponseEntity.status(400).body(error);
+        } catch (Exception ex) {
+            ErrorResponse error = new ErrorResponse(
+                    "Erro interno do servidor",
+                    LocalDateTime.now()
+            );
+            return ResponseEntity.status(500).body(error);
+        }
     }
 
     @Operation(
@@ -82,12 +95,26 @@ public class UsuarioController {
     )
 
     @GetMapping
-    public ResponseEntity<List<UsuarioResponse>> findAll(
+    public ResponseEntity<?> findAll(
             @RequestParam(required = false) String nmUsuario,
             @RequestParam(required = false, defaultValue = "1") Integer usuarioAtivo
     ) {
-        UsuarioFiltro filtros = new UsuarioFiltro(nmUsuario, usuarioAtivo);
-        return ResponseEntity.ok(buscarTodosUsuariosUseCase.execute(filtros));
+        try {
+            UsuarioFiltro filtros = new UsuarioFiltro(nmUsuario, usuarioAtivo);
+            return ResponseEntity.ok(buscarTodosUsuariosUseCase.execute(filtros));
+        } catch (BusinessException ex) {
+            ErrorResponse error = new ErrorResponse(
+                    ex.getMessage(),
+                    LocalDateTime.now()
+            );
+            return ResponseEntity.status(400).body(error);
+        } catch (Exception ex) {
+            ErrorResponse error = new ErrorResponse(
+                    "Erro interno do servidor",
+                    LocalDateTime.now()
+            );
+            return ResponseEntity.status(500).body(error);
+        }
     }
 
     @Operation(
@@ -103,8 +130,22 @@ public class UsuarioController {
             }
     )
     @GetMapping("/{cdUsuario}")
-    public ResponseEntity<UsuarioResponse> findById(@PathVariable Integer cdUsuario) {
-        return ResponseEntity.ok(buscarUsuarioByIdUseCase.execute(cdUsuario));
+    public ResponseEntity<?> findById(@PathVariable Integer cdUsuario) {
+        try {
+            return ResponseEntity.ok(buscarUsuarioByIdUseCase.execute(cdUsuario));
+        } catch (BusinessException ex) {
+            ErrorResponse error = new ErrorResponse(
+                    ex.getMessage(),
+                    LocalDateTime.now()
+            );
+            return ResponseEntity.status(400).body(error);
+        } catch (Exception ex) {
+            ErrorResponse error = new ErrorResponse(
+                    "Erro interno do servidor",
+                    LocalDateTime.now()
+            );
+            return ResponseEntity.status(500).body(error);
+        }
     }
 
     @Operation(
@@ -120,9 +161,23 @@ public class UsuarioController {
             }
     )
     @PostMapping("/update")
-    public ResponseEntity<UsuarioResponse> update(@Valid @RequestBody UsuarioRequest usuarioRequest) {
-        UsuarioResponse response = atualizarUsuarioUseCase.execute(usuarioRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    public ResponseEntity<?> update(@Valid @RequestBody UsuarioRequest usuarioRequest) {
+        try {
+            UsuarioResponse response = atualizarUsuarioUseCase.execute(usuarioRequest);
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } catch (BusinessException ex) {
+            ErrorResponse error = new ErrorResponse(
+                    ex.getMessage(),
+                    LocalDateTime.now()
+            );
+            return ResponseEntity.status(400).body(error);
+        } catch (Exception ex) {
+            ErrorResponse error = new ErrorResponse(
+                    "Erro interno do servidor",
+                    LocalDateTime.now()
+            );
+            return ResponseEntity.status(500).body(error);
+        }
     }
 
     @Operation(
