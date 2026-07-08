@@ -64,8 +64,8 @@ public class PacienteRequest {
     private String observacoesPilates;
     private String assinaturaPilates;
 
-    private Boolean aceitouTermo;
-    private String localTermo;
-    private LocalDate dataTermo;
-    private String assinaturaTermo;
+    /** Conteúdo do arquivo (PDF ou imagem) do termo, codificado em Base64. Informar apenas quando um novo arquivo for selecionado. */
+    private String arquivoTermoBase64;
+    private String arquivoTermoNome;
+    private String arquivoTermoTipo;
 }

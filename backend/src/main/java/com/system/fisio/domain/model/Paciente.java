@@ -60,10 +60,9 @@ public class Paciente {
     private final String observacoesPilates;
     private final String assinaturaPilates;
 
-    private final Boolean aceitouTermo;
-    private final String localTermo;
-    private final LocalDate dataTermo;
-    private final String assinaturaTermo;
+    private byte[] arquivoTermoDados;
+    private String arquivoTermoNome;
+    private String arquivoTermoTipo;
 
     public Paciente(
             Integer cdPaciente,
@@ -113,10 +112,9 @@ public class Paciente {
             String pilatesAlinhamentoPostural,
             String observacoesPilates,
             String assinaturaPilates,
-            Boolean aceitouTermo,
-            String localTermo,
-            LocalDate dataTermo,
-            String assinaturaTermo
+            byte[] arquivoTermoDados,
+            String arquivoTermoNome,
+            String arquivoTermoTipo
     ) {
         this.cdPaciente = cdPaciente;
         this.nmPaciente = nmPaciente;
@@ -165,10 +163,9 @@ public class Paciente {
         this.pilatesAlinhamentoPostural = pilatesAlinhamentoPostural;
         this.observacoesPilates = observacoesPilates;
         this.assinaturaPilates = assinaturaPilates;
-        this.aceitouTermo = aceitouTermo;
-        this.localTermo = localTermo;
-        this.dataTermo = dataTermo;
-        this.assinaturaTermo = assinaturaTermo;
+        this.arquivoTermoDados = arquivoTermoDados;
+        this.arquivoTermoNome = arquivoTermoNome;
+        this.arquivoTermoTipo = arquivoTermoTipo;
         validar();
     }
 
@@ -180,6 +177,14 @@ public class Paciente {
 
     public void inativar() {
         this.stPaciente = AtivoInativoEnum.INATIVO;
+    }
+
+    public void manterArquivoTermoExistente(Paciente atual) {
+        if (this.arquivoTermoDados == null && atual != null) {
+            this.arquivoTermoDados = atual.getArquivoTermoDados();
+            this.arquivoTermoNome = atual.getArquivoTermoNome();
+            this.arquivoTermoTipo = atual.getArquivoTermoTipo();
+        }
     }
 
     public Integer getCdPaciente() { return cdPaciente; }
@@ -229,8 +234,7 @@ public class Paciente {
     public String getPilatesAlinhamentoPostural() { return pilatesAlinhamentoPostural; }
     public String getObservacoesPilates() { return observacoesPilates; }
     public String getAssinaturaPilates() { return assinaturaPilates; }
-    public Boolean getAceitouTermo() { return aceitouTermo; }
-    public String getLocalTermo() { return localTermo; }
-    public LocalDate getDataTermo() { return dataTermo; }
-    public String getAssinaturaTermo() { return assinaturaTermo; }
+    public byte[] getArquivoTermoDados() { return arquivoTermoDados; }
+    public String getArquivoTermoNome() { return arquivoTermoNome; }
+    public String getArquivoTermoTipo() { return arquivoTermoTipo; }
 }

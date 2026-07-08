@@ -122,10 +122,15 @@ public class PacienteEntity {
     private String observacoesPilates;
 
     private String assinaturaPilates;
-    private Boolean aceitouTermo;
-    private String localTermo;
-    private LocalDate dataTermo;
-    private String assinaturaTermo;
+
+    @Column(name = "arquivo_termo_dados", columnDefinition = "bytea")
+    private byte[] arquivoTermoDados;
+
+    @Column(name = "arquivo_termo_nome")
+    private String arquivoTermoNome;
+
+    @Column(name = "arquivo_termo_tipo")
+    private String arquivoTermoTipo;
 
     @PrePersist
     @PreUpdate

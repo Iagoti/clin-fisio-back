@@ -57,10 +57,9 @@ public class PacientePersistenceMapper {
         entity.setPilatesAlinhamentoPostural(paciente.getPilatesAlinhamentoPostural());
         entity.setObservacoesPilates(paciente.getObservacoesPilates());
         entity.setAssinaturaPilates(paciente.getAssinaturaPilates());
-        entity.setAceitouTermo(paciente.getAceitouTermo());
-        entity.setLocalTermo(paciente.getLocalTermo());
-        entity.setDataTermo(paciente.getDataTermo());
-        entity.setAssinaturaTermo(paciente.getAssinaturaTermo());
+        entity.setArquivoTermoDados(paciente.getArquivoTermoDados());
+        entity.setArquivoTermoNome(paciente.getArquivoTermoNome());
+        entity.setArquivoTermoTipo(paciente.getArquivoTermoTipo());
         return entity;
     }
 
@@ -113,10 +112,9 @@ public class PacientePersistenceMapper {
                 entity.getPilatesAlinhamentoPostural(),
                 entity.getObservacoesPilates(),
                 entity.getAssinaturaPilates(),
-                entity.getAceitouTermo(),
-                entity.getLocalTermo(),
-                entity.getDataTermo(),
-                entity.getAssinaturaTermo()
+                entity.getArquivoTermoDados(),
+                entity.getArquivoTermoNome(),
+                entity.getArquivoTermoTipo()
         );
     }
 }

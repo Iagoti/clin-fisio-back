@@ -26,7 +26,9 @@ public class AtualizarPacienteUseCase {
         Paciente atual = pacienteRepository.findById(request.getCdPaciente())
                 .orElseThrow(() -> new PacienteException("Paciente não encontrado"));
         request.setDtCadastro(atual.getDtCadastro());
-        Paciente paciente = pacienteRepository.save(pacienteMapper.toDomain(request));
+        Paciente pacienteAtualizado = pacienteMapper.toDomain(request);
+        pacienteAtualizado.manterArquivoTermoExistente(atual);
+        Paciente paciente = pacienteRepository.save(pacienteAtualizado);
         return pacienteMapper.toResponse(paciente);
     }
 }

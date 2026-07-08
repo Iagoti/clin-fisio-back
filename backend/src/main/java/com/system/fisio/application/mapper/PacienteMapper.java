@@ -2,13 +2,16 @@ package com.system.fisio.application.mapper;
 
 import com.system.fisio.application.dto.PacienteRequest;
 import com.system.fisio.application.dto.PacienteResponse;
+import com.system.fisio.domain.exception.PacienteException;
 import com.system.fisio.domain.model.Paciente;
+import java.util.Base64;
 import org.springframework.stereotype.Component;
 
 @Component
 public class PacienteMapper {
 
     public Paciente toDomain(PacienteRequest request) {
+        byte[] arquivoTermoDados = decodificarBase64(request.getArquivoTermoBase64());
         return new Paciente(
                 request.getCdPaciente(),
                 request.getNome(),
@@ -57,15 +60,14 @@ public class PacienteMapper {
                 request.getPilatesAlinhamentoPostural(),
                 request.getObservacoesPilates(),
                 request.getAssinaturaPilates(),
-                request.getAceitouTermo(),
-                request.getLocalTermo(),
-                request.getDataTermo(),
-                request.getAssinaturaTermo()
+                arquivoTermoDados,
+                arquivoTermoDados != null ? request.getArquivoTermoNome() : null,
+                arquivoTermoDados != null ? request.getArquivoTermoTipo() : null
         );
     }
 
     public PacienteResponse toResponse(Paciente paciente) {
-        return new PacienteResponse(
+        PacienteResponse response = new PacienteResponse(
                 paciente.getCdPaciente(),
                 paciente.getNmPaciente(),
                 paciente.getCpf(),
@@ -113,10 +115,26 @@ public class PacienteMapper {
                 paciente.getPilatesAlinhamentoPostural(),
                 paciente.getObservacoesPilates(),
                 paciente.getAssinaturaPilates(),
-                paciente.getAceitouTermo(),
-                paciente.getLocalTermo(),
-                paciente.getDataTermo(),
-                paciente.getAssinaturaTermo()
+                paciente.getArquivoTermoDados() != null && paciente.getArquivoTermoDados().length > 0,
+                paciente.getArquivoTermoNome(),
+                paciente.getArquivoTermoTipo()
         );
+        return response;
+    }
+
+    private byte[] decodificarBase64(String base64) {
+        if (base64 == null || base64.isBlank()) {
+            return null;
+        }
+        String conteudo = base64;
+        int idx = conteudo.indexOf(",");
+        if (conteudo.startsWith("data:") && idx >= 0) {
+            conteudo = conteudo.substring(idx + 1);
+        }
+        try {
+            return Base64.getDecoder().decode(conteudo);
+        } catch (IllegalArgumentException ex) {
+            throw new PacienteException("Arquivo do termo inválido");
+        }
     }
 }

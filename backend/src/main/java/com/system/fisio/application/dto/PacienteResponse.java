@@ -61,8 +61,7 @@ public class PacienteResponse {
     private String pilatesAlinhamentoPostural;
     private String observacoesPilates;
     private String assinaturaPilates;
-    private Boolean aceitouTermo;
-    private String localTermo;
-    private LocalDate dataTermo;
-    private String assinaturaTermo;
+    private Boolean possuiArquivoTermo;
+    private String arquivoTermoNome;
+    private String arquivoTermoTipo;
 }

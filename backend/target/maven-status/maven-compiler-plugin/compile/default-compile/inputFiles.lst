@@ -1,4 +1,5 @@
 /Users/iago/Documents/GitHub/clin-fisio/clin-fisio-back/backend/src/main/java/com/system/fisio/ClinFisioApplication.java
+/Users/iago/Documents/GitHub/clin-fisio/clin-fisio-back/backend/src/main/java/com/system/fisio/application/dto/ArquivoTermoResponse.java
 /Users/iago/Documents/GitHub/clin-fisio/clin-fisio-back/backend/src/main/java/com/system/fisio/application/dto/DeletePacienteResponse.java
 /Users/iago/Documents/GitHub/clin-fisio/clin-fisio-back/backend/src/main/java/com/system/fisio/application/dto/DeleteUsuarioResponse.java
 /Users/iago/Documents/GitHub/clin-fisio/clin-fisio-back/backend/src/main/java/com/system/fisio/application/dto/LoginRequest.java
@@ -15,6 +16,7 @@
 /Users/iago/Documents/GitHub/clin-fisio/clin-fisio-back/backend/src/main/java/com/system/fisio/application/usecase/AtualizarPacienteUseCase.java
 /Users/iago/Documents/GitHub/clin-fisio/clin-fisio-back/backend/src/main/java/com/system/fisio/application/usecase/AtualizarUsuarioUseCase.java
 /Users/iago/Documents/GitHub/clin-fisio/clin-fisio-back/backend/src/main/java/com/system/fisio/application/usecase/AutenticarUsuarioUseCase.java
+/Users/iago/Documents/GitHub/clin-fisio/clin-fisio-back/backend/src/main/java/com/system/fisio/application/usecase/BuscarArquivoTermoPacienteUseCase.java
 /Users/iago/Documents/GitHub/clin-fisio/clin-fisio-back/backend/src/main/java/com/system/fisio/application/usecase/BuscarPacienteByIdUseCase.java
 /Users/iago/Documents/GitHub/clin-fisio/clin-fisio-back/backend/src/main/java/com/system/fisio/application/usecase/BuscarTodosPacientesUseCase.java
 /Users/iago/Documents/GitHub/clin-fisio/clin-fisio-back/backend/src/main/java/com/system/fisio/application/usecase/BuscarTodosUsuariosUseCase.java
