@@ -62,6 +62,9 @@ public class Paciente {
     private final String observacoesPilates;
     private final String assinaturaPilates;
 
+    private final Integer quantidadeSessoes;
+    private final String sessoesAgendadas;
+
     private byte[] arquivoTermoDados;
     private String arquivoTermoNome;
     private String arquivoTermoTipo;
@@ -115,6 +118,8 @@ public class Paciente {
             String pilatesAlinhamentoPostural,
             String observacoesPilates,
             String assinaturaPilates,
+            Integer quantidadeSessoes,
+            String sessoesAgendadas,
             byte[] arquivoTermoDados,
             String arquivoTermoNome,
             String arquivoTermoTipo
@@ -167,6 +172,8 @@ public class Paciente {
         this.pilatesAlinhamentoPostural = pilatesAlinhamentoPostural;
         this.observacoesPilates = observacoesPilates;
         this.assinaturaPilates = assinaturaPilates;
+        this.quantidadeSessoes = quantidadeSessoes;
+        this.sessoesAgendadas = sessoesAgendadas;
         this.arquivoTermoDados = arquivoTermoDados;
         this.arquivoTermoNome = arquivoTermoNome;
         this.arquivoTermoTipo = arquivoTermoTipo;
@@ -239,6 +246,8 @@ public class Paciente {
     public String getPilatesAlinhamentoPostural() { return pilatesAlinhamentoPostural; }
     public String getObservacoesPilates() { return observacoesPilates; }
     public String getAssinaturaPilates() { return assinaturaPilates; }
+    public Integer getQuantidadeSessoes() { return quantidadeSessoes; }
+    public String getSessoesAgendadas() { return sessoesAgendadas; }
     public byte[] getArquivoTermoDados() { return arquivoTermoDados; }
     public String getArquivoTermoNome() { return arquivoTermoNome; }
     public String getArquivoTermoTipo() { return arquivoTermoTipo; }

@@ -61,6 +61,8 @@ public class PacienteMapper {
                 request.getPilatesAlinhamentoPostural(),
                 request.getObservacoesPilates(),
                 request.getAssinaturaPilates(),
+                request.getQuantidadeSessoes(),
+                request.getSessoesAgendadas(),
                 arquivoTermoDados,
                 arquivoTermoDados != null ? request.getArquivoTermoNome() : null,
                 arquivoTermoDados != null ? request.getArquivoTermoTipo() : null
@@ -117,6 +119,8 @@ public class PacienteMapper {
                 paciente.getPilatesAlinhamentoPostural(),
                 paciente.getObservacoesPilates(),
                 paciente.getAssinaturaPilates(),
+                paciente.getQuantidadeSessoes(),
+                paciente.getSessoesAgendadas(),
                 paciente.getArquivoTermoDados() != null && paciente.getArquivoTermoDados().length > 0,
                 paciente.getArquivoTermoNome(),
                 paciente.getArquivoTermoTipo()

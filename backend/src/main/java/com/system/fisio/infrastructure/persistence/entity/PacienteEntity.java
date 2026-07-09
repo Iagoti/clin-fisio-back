@@ -126,6 +126,12 @@ public class PacienteEntity {
 
     private String assinaturaPilates;
 
+    @Column(name = "qt_total_sessoes")
+    private Integer quantidadeSessoes;
+
+    @Lob
+    private String sessoesAgendadas;
+
     @Column(name = "arquivo_termo_dados", columnDefinition = "bytea")
     private byte[] arquivoTermoDados;
 

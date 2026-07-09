@@ -66,6 +66,10 @@ public class PacienteRequest {
     private String observacoesPilates;
     private String assinaturaPilates;
 
+    private Integer quantidadeSessoes;
+    /** Sessões agendadas, uma por linha, no formato "yyyy-MM-dd HH:mm". */
+    private String sessoesAgendadas;
+
     /** Conteúdo do arquivo (PDF ou imagem) do termo, codificado em Base64. Informar apenas quando um novo arquivo for selecionado. */
     private String arquivoTermoBase64;
     private String arquivoTermoNome;

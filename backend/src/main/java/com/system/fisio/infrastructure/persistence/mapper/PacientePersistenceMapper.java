@@ -59,6 +59,8 @@ public class PacientePersistenceMapper {
         entity.setPilatesAlinhamentoPostural(paciente.getPilatesAlinhamentoPostural());
         entity.setObservacoesPilates(paciente.getObservacoesPilates());
         entity.setAssinaturaPilates(paciente.getAssinaturaPilates());
+        entity.setQuantidadeSessoes(paciente.getQuantidadeSessoes());
+        entity.setSessoesAgendadas(paciente.getSessoesAgendadas());
         entity.setArquivoTermoDados(paciente.getArquivoTermoDados());
         entity.setArquivoTermoNome(paciente.getArquivoTermoNome());
         entity.setArquivoTermoTipo(paciente.getArquivoTermoTipo());
@@ -115,6 +117,8 @@ public class PacientePersistenceMapper {
                 entity.getPilatesAlinhamentoPostural(),
                 entity.getObservacoesPilates(),
                 entity.getAssinaturaPilates(),
+                entity.getQuantidadeSessoes(),
+                entity.getSessoesAgendadas(),
                 entity.getArquivoTermoDados(),
                 entity.getArquivoTermoNome(),
                 entity.getArquivoTermoTipo()

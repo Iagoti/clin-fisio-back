@@ -63,6 +63,8 @@ public class PacienteResponse {
     private String pilatesAlinhamentoPostural;
     private String observacoesPilates;
     private String assinaturaPilates;
+    private Integer quantidadeSessoes;
+    private String sessoesAgendadas;
     private Boolean possuiArquivoTermo;
     private String arquivoTermoNome;
     private String arquivoTermoTipo;
