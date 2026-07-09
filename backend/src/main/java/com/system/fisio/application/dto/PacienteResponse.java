@@ -1,6 +1,7 @@
 package com.system.fisio.application.dto;
 
 import com.system.fisio.domain.enums.AtivoInativoEnum;
+import com.system.fisio.domain.enums.TipoAtendimentoEnum;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -28,6 +29,7 @@ public class PacienteResponse {
     private LocalDate dataPagamento;
     private BigDecimal valorMensalidade;
     private AtivoInativoEnum stPaciente;
+    private TipoAtendimentoEnum tipoAtendimento;
     private LocalDateTime dtCadastro;
     private LocalDate dataAvaliacaoAnamnese;
     private String alinhamentoCabeca;

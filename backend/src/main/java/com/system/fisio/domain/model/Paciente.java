@@ -1,6 +1,7 @@
 package com.system.fisio.domain.model;
 
 import com.system.fisio.domain.enums.AtivoInativoEnum;
+import com.system.fisio.domain.enums.TipoAtendimentoEnum;
 import com.system.fisio.domain.exception.PacienteException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -22,6 +23,7 @@ public class Paciente {
     private final LocalDate dataPagamento;
     private final BigDecimal valorMensalidade;
     private AtivoInativoEnum stPaciente;
+    private final TipoAtendimentoEnum tipoAtendimento;
     private final LocalDateTime dtCadastro;
 
     private final LocalDate dataAvaliacaoAnamnese;
@@ -79,6 +81,7 @@ public class Paciente {
             LocalDate dataPagamento,
             BigDecimal valorMensalidade,
             AtivoInativoEnum stPaciente,
+            TipoAtendimentoEnum tipoAtendimento,
             LocalDateTime dtCadastro,
             LocalDate dataAvaliacaoAnamnese,
             String alinhamentoCabeca,
@@ -130,6 +133,7 @@ public class Paciente {
         this.dataPagamento = dataPagamento;
         this.valorMensalidade = valorMensalidade;
         this.stPaciente = stPaciente == null ? AtivoInativoEnum.ATIVO : stPaciente;
+        this.tipoAtendimento = tipoAtendimento;
         this.dtCadastro = dtCadastro == null ? LocalDateTime.now() : dtCadastro;
         this.dataAvaliacaoAnamnese = dataAvaliacaoAnamnese;
         this.alinhamentoCabeca = alinhamentoCabeca;
@@ -201,6 +205,7 @@ public class Paciente {
     public LocalDate getDataPagamento() { return dataPagamento; }
     public BigDecimal getValorMensalidade() { return valorMensalidade; }
     public AtivoInativoEnum getStPaciente() { return stPaciente; }
+    public TipoAtendimentoEnum getTipoAtendimento() { return tipoAtendimento; }
     public LocalDateTime getDtCadastro() { return dtCadastro; }
     public LocalDate getDataAvaliacaoAnamnese() { return dataAvaliacaoAnamnese; }
     public String getAlinhamentoCabeca() { return alinhamentoCabeca; }

@@ -1,6 +1,7 @@
 package com.system.fisio.infrastructure.persistence.mapper;
 
 import com.system.fisio.domain.enums.AtivoInativoEnum;
+import com.system.fisio.domain.enums.TipoAtendimentoEnum;
 import com.system.fisio.domain.model.Paciente;
 import com.system.fisio.infrastructure.persistence.entity.PacienteEntity;
 import org.springframework.stereotype.Component;
@@ -24,6 +25,7 @@ public class PacientePersistenceMapper {
         entity.setDataPagamento(paciente.getDataPagamento());
         entity.setValorMensalidade(paciente.getValorMensalidade());
         entity.setStPaciente(paciente.getStPaciente().getCodigo());
+        entity.setTipoAtendimento(paciente.getTipoAtendimento() != null ? paciente.getTipoAtendimento().getCodigo() : null);
         entity.setDtCadastro(paciente.getDtCadastro());
         entity.setDataAvaliacaoAnamnese(paciente.getDataAvaliacaoAnamnese());
         entity.setAlinhamentoCabeca(paciente.getAlinhamentoCabeca());
@@ -79,6 +81,7 @@ public class PacientePersistenceMapper {
                 entity.getDataPagamento(),
                 entity.getValorMensalidade(),
                 AtivoInativoEnum.fromCodigo(entity.getStPaciente()),
+                TipoAtendimentoEnum.fromCodigo(entity.getTipoAtendimento()),
                 entity.getDtCadastro(),
                 entity.getDataAvaliacaoAnamnese(),
                 entity.getAlinhamentoCabeca(),

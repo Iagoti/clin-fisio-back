@@ -67,6 +67,9 @@ public class PacienteEntity {
     @Column(name = "st_paciente")
     private Integer stPaciente;
 
+    @Column(name = "tipo_atendimento")
+    private Integer tipoAtendimento;
+
     @Column(name = "dt_cadastro")
     private LocalDateTime dtCadastro;
 
