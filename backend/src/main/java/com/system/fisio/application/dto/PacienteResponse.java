@@ -1,8 +1,6 @@
 package com.system.fisio.application.dto;
 
 import com.system.fisio.domain.enums.AtivoInativoEnum;
-import com.system.fisio.domain.enums.TipoAtendimentoEnum;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
@@ -26,10 +24,7 @@ public class PacienteResponse {
     private String estado;
     private String cep;
     private LocalDate dataAdmissao;
-    private LocalDate dataPagamento;
-    private BigDecimal valorMensalidade;
     private AtivoInativoEnum stPaciente;
-    private TipoAtendimentoEnum tipoAtendimento;
     private LocalDateTime dtCadastro;
     private LocalDate dataAvaliacaoAnamnese;
     private String alinhamentoCabeca;
@@ -63,8 +58,6 @@ public class PacienteResponse {
     private String pilatesAlinhamentoPostural;
     private String observacoesPilates;
     private String assinaturaPilates;
-    private Integer quantidadeSessoes;
-    private String sessoesAgendadas;
     private Boolean possuiArquivoTermo;
     private String arquivoTermoNome;
     private String arquivoTermoTipo;

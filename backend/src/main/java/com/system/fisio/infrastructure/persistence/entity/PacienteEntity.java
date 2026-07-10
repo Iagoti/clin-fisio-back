@@ -9,7 +9,6 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.Getter;
@@ -58,17 +57,8 @@ public class PacienteEntity {
     @Column(name = "dt_admissao")
     private LocalDate dataAdmissao;
 
-    @Column(name = "dt_pagamento")
-    private LocalDate dataPagamento;
-
-    @Column(name = "vl_mensalidade")
-    private BigDecimal valorMensalidade;
-
     @Column(name = "st_paciente")
     private Integer stPaciente;
-
-    @Column(name = "tipo_atendimento")
-    private Integer tipoAtendimento;
 
     @Column(name = "dt_cadastro")
     private LocalDateTime dtCadastro;
@@ -125,12 +115,6 @@ public class PacienteEntity {
     private String observacoesPilates;
 
     private String assinaturaPilates;
-
-    @Column(name = "qt_total_sessoes")
-    private Integer quantidadeSessoes;
-
-    @Lob
-    private String sessoesAgendadas;
 
     @Column(name = "arquivo_termo_dados", columnDefinition = "bytea")
     private byte[] arquivoTermoDados;

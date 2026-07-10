@@ -1,8 +1,6 @@
 package com.system.fisio.application.dto;
 
 import com.system.fisio.domain.enums.AtivoInativoEnum;
-import com.system.fisio.domain.enums.TipoAtendimentoEnum;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.Getter;
@@ -24,10 +22,7 @@ public class PacienteRequest {
     private String estado;
     private String cep;
     private LocalDate dataAdmissao;
-    private LocalDate dataPagamento;
-    private BigDecimal valorMensalidade;
     private AtivoInativoEnum stPaciente = AtivoInativoEnum.ATIVO;
-    private TipoAtendimentoEnum tipoAtendimento;
     private LocalDateTime dtCadastro;
 
     private LocalDate dataAvaliacaoAnamnese;
@@ -65,10 +60,6 @@ public class PacienteRequest {
     private String pilatesAlinhamentoPostural;
     private String observacoesPilates;
     private String assinaturaPilates;
-
-    private Integer quantidadeSessoes;
-    /** Sessões agendadas, uma por linha, no formato "yyyy-MM-dd HH:mm". */
-    private String sessoesAgendadas;
 
     /** Conteúdo do arquivo (PDF ou imagem) do termo, codificado em Base64. Informar apenas quando um novo arquivo for selecionado. */
     private String arquivoTermoBase64;

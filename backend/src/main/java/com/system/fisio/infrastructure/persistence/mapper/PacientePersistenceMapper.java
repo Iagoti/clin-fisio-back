@@ -1,7 +1,6 @@
 package com.system.fisio.infrastructure.persistence.mapper;
 
 import com.system.fisio.domain.enums.AtivoInativoEnum;
-import com.system.fisio.domain.enums.TipoAtendimentoEnum;
 import com.system.fisio.domain.model.Paciente;
 import com.system.fisio.infrastructure.persistence.entity.PacienteEntity;
 import org.springframework.stereotype.Component;
@@ -22,10 +21,7 @@ public class PacientePersistenceMapper {
         entity.setEstado(paciente.getEstado());
         entity.setCep(paciente.getCep());
         entity.setDataAdmissao(paciente.getDataAdmissao());
-        entity.setDataPagamento(paciente.getDataPagamento());
-        entity.setValorMensalidade(paciente.getValorMensalidade());
         entity.setStPaciente(paciente.getStPaciente().getCodigo());
-        entity.setTipoAtendimento(paciente.getTipoAtendimento() != null ? paciente.getTipoAtendimento().getCodigo() : null);
         entity.setDtCadastro(paciente.getDtCadastro());
         entity.setDataAvaliacaoAnamnese(paciente.getDataAvaliacaoAnamnese());
         entity.setAlinhamentoCabeca(paciente.getAlinhamentoCabeca());
@@ -59,8 +55,6 @@ public class PacientePersistenceMapper {
         entity.setPilatesAlinhamentoPostural(paciente.getPilatesAlinhamentoPostural());
         entity.setObservacoesPilates(paciente.getObservacoesPilates());
         entity.setAssinaturaPilates(paciente.getAssinaturaPilates());
-        entity.setQuantidadeSessoes(paciente.getQuantidadeSessoes());
-        entity.setSessoesAgendadas(paciente.getSessoesAgendadas());
         entity.setArquivoTermoDados(paciente.getArquivoTermoDados());
         entity.setArquivoTermoNome(paciente.getArquivoTermoNome());
         entity.setArquivoTermoTipo(paciente.getArquivoTermoTipo());
@@ -80,10 +74,7 @@ public class PacientePersistenceMapper {
                 entity.getEstado(),
                 entity.getCep(),
                 entity.getDataAdmissao(),
-                entity.getDataPagamento(),
-                entity.getValorMensalidade(),
                 AtivoInativoEnum.fromCodigo(entity.getStPaciente()),
-                TipoAtendimentoEnum.fromCodigo(entity.getTipoAtendimento()),
                 entity.getDtCadastro(),
                 entity.getDataAvaliacaoAnamnese(),
                 entity.getAlinhamentoCabeca(),
@@ -117,8 +108,6 @@ public class PacientePersistenceMapper {
                 entity.getPilatesAlinhamentoPostural(),
                 entity.getObservacoesPilates(),
                 entity.getAssinaturaPilates(),
-                entity.getQuantidadeSessoes(),
-                entity.getSessoesAgendadas(),
                 entity.getArquivoTermoDados(),
                 entity.getArquivoTermoNome(),
                 entity.getArquivoTermoTipo()

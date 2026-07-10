@@ -1,9 +1,7 @@
 package com.system.fisio.domain.model;
 
 import com.system.fisio.domain.enums.AtivoInativoEnum;
-import com.system.fisio.domain.enums.TipoAtendimentoEnum;
 import com.system.fisio.domain.exception.PacienteException;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -20,10 +18,7 @@ public class Paciente {
     private final String estado;
     private final String cep;
     private final LocalDate dataAdmissao;
-    private final LocalDate dataPagamento;
-    private final BigDecimal valorMensalidade;
     private AtivoInativoEnum stPaciente;
-    private final TipoAtendimentoEnum tipoAtendimento;
     private final LocalDateTime dtCadastro;
 
     private final LocalDate dataAvaliacaoAnamnese;
@@ -62,9 +57,6 @@ public class Paciente {
     private final String observacoesPilates;
     private final String assinaturaPilates;
 
-    private final Integer quantidadeSessoes;
-    private final String sessoesAgendadas;
-
     private byte[] arquivoTermoDados;
     private String arquivoTermoNome;
     private String arquivoTermoTipo;
@@ -81,10 +73,7 @@ public class Paciente {
             String estado,
             String cep,
             LocalDate dataAdmissao,
-            LocalDate dataPagamento,
-            BigDecimal valorMensalidade,
             AtivoInativoEnum stPaciente,
-            TipoAtendimentoEnum tipoAtendimento,
             LocalDateTime dtCadastro,
             LocalDate dataAvaliacaoAnamnese,
             String alinhamentoCabeca,
@@ -118,8 +107,6 @@ public class Paciente {
             String pilatesAlinhamentoPostural,
             String observacoesPilates,
             String assinaturaPilates,
-            Integer quantidadeSessoes,
-            String sessoesAgendadas,
             byte[] arquivoTermoDados,
             String arquivoTermoNome,
             String arquivoTermoTipo
@@ -135,10 +122,7 @@ public class Paciente {
         this.estado = estado;
         this.cep = cep;
         this.dataAdmissao = dataAdmissao;
-        this.dataPagamento = dataPagamento;
-        this.valorMensalidade = valorMensalidade;
         this.stPaciente = stPaciente == null ? AtivoInativoEnum.ATIVO : stPaciente;
-        this.tipoAtendimento = tipoAtendimento;
         this.dtCadastro = dtCadastro == null ? LocalDateTime.now() : dtCadastro;
         this.dataAvaliacaoAnamnese = dataAvaliacaoAnamnese;
         this.alinhamentoCabeca = alinhamentoCabeca;
@@ -172,8 +156,6 @@ public class Paciente {
         this.pilatesAlinhamentoPostural = pilatesAlinhamentoPostural;
         this.observacoesPilates = observacoesPilates;
         this.assinaturaPilates = assinaturaPilates;
-        this.quantidadeSessoes = quantidadeSessoes;
-        this.sessoesAgendadas = sessoesAgendadas;
         this.arquivoTermoDados = arquivoTermoDados;
         this.arquivoTermoNome = arquivoTermoNome;
         this.arquivoTermoTipo = arquivoTermoTipo;
@@ -209,10 +191,7 @@ public class Paciente {
     public String getEstado() { return estado; }
     public String getCep() { return cep; }
     public LocalDate getDataAdmissao() { return dataAdmissao; }
-    public LocalDate getDataPagamento() { return dataPagamento; }
-    public BigDecimal getValorMensalidade() { return valorMensalidade; }
     public AtivoInativoEnum getStPaciente() { return stPaciente; }
-    public TipoAtendimentoEnum getTipoAtendimento() { return tipoAtendimento; }
     public LocalDateTime getDtCadastro() { return dtCadastro; }
     public LocalDate getDataAvaliacaoAnamnese() { return dataAvaliacaoAnamnese; }
     public String getAlinhamentoCabeca() { return alinhamentoCabeca; }
@@ -246,8 +225,6 @@ public class Paciente {
     public String getPilatesAlinhamentoPostural() { return pilatesAlinhamentoPostural; }
     public String getObservacoesPilates() { return observacoesPilates; }
     public String getAssinaturaPilates() { return assinaturaPilates; }
-    public Integer getQuantidadeSessoes() { return quantidadeSessoes; }
-    public String getSessoesAgendadas() { return sessoesAgendadas; }
     public byte[] getArquivoTermoDados() { return arquivoTermoDados; }
     public String getArquivoTermoNome() { return arquivoTermoNome; }
     public String getArquivoTermoTipo() { return arquivoTermoTipo; }
