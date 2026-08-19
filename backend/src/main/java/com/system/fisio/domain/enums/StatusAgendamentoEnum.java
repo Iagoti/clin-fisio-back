@@ -6,15 +6,18 @@ import tools.jackson.databind.JsonNode;
 import com.system.fisio.domain.exception.CodigoInvalidoException;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
-public enum TipoUsuario {
+public enum StatusAgendamentoEnum {
 
-    ADM(1, "Administrador"),
-    RECEPCAO(2, "Recepção");
+    AGENDADO(1, "Agendado"),
+    CONFIRMADO(2, "Confirmado"),
+    CONCLUIDO(3, "Concluído"),
+    CANCELADO(4, "Cancelado"),
+    FALTOU(5, "Faltou");
 
     private final int codigo;
     private final String descricao;
 
-    TipoUsuario(int codigo, String descricao) {
+    StatusAgendamentoEnum(int codigo, String descricao) {
         this.codigo = codigo;
         this.descricao = descricao;
     }
@@ -28,7 +31,7 @@ public enum TipoUsuario {
     }
 
     @JsonCreator
-    public static TipoUsuario fromCodigo(JsonNode node) {
+    public static StatusAgendamentoEnum fromCodigo(JsonNode node) {
         if (node == null || node.isNull()) {
             return null;
         }
@@ -36,16 +39,16 @@ public enum TipoUsuario {
         return fromCodigo(Integer.valueOf(codigo));
     }
 
-    public static TipoUsuario fromCodigo(Integer codigo) {
+    public static StatusAgendamentoEnum fromCodigo(Integer codigo) {
         if (codigo == null) {
             return null;
         }
-        for (TipoUsuario tipo : values()) {
-            if (tipo.codigo == codigo) {
-                return tipo;
+        for (StatusAgendamentoEnum status : values()) {
+            if (status.codigo == codigo) {
+                return status;
             }
         }
-        throw new CodigoInvalidoException("Código inválido para TipoUsuario: " + codigo);
+        throw new CodigoInvalidoException("Código inválido para StatusAgendamento: " + codigo);
     }
 
     @Override
@@ -53,5 +56,3 @@ public enum TipoUsuario {
         return descricao;
     }
 }
-
-

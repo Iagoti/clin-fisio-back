@@ -10,6 +10,8 @@ import com.system.fisio.domain.ports.IUsuarioRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.Set;
+
 @Component
 public class AutenticarUsuarioUseCase {
 
@@ -33,13 +35,11 @@ public class AutenticarUsuarioUseCase {
         if (!passwordEncoder.matches(req.senha(), usuario.getSenha())) {
             throw new UsuarioException("Login ou senha inválidos");
         }
-        Integer tpUsuario = usuario.getTpUsuario().getCodigo();
-        String token = jwtService.gerarToken(
-                usuario.getCdUsuario(),
-                usuario.getLogin(),
-                tpUsuario
-        );
-        return new LoginResponse(token, usuario.getTpUsuario().getCodigo(), usuario.getCdUsuario(), usuario.getNmUsuario());
+
+        Set<String> permissoes = usuario.getPermissoesEfetivas();
+        Set<String> roles = usuario.getNomesRoles();
+        String token = jwtService.gerarToken(usuario.getCdUsuario(), usuario.getLogin(), permissoes, roles);
+        return new LoginResponse(token, roles, usuario.getCdUsuario(), usuario.getNmUsuario());
     }
 
 }

@@ -9,7 +9,6 @@ import com.system.fisio.application.usecase.BuscarTodosUsuariosUseCase;
 import com.system.fisio.application.usecase.BuscarUsuarioByIdUseCase;
 import com.system.fisio.application.usecase.CriarUsuarioUseCase;
 import com.system.fisio.application.usecase.DeletarUsuarioUseCase;
-import com.system.fisio.domain.exception.AcessoNegadoException;
 import com.system.fisio.domain.exception.BusinessException;
 import com.system.fisio.infrastructure.dto.ErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -21,6 +20,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -53,15 +53,18 @@ public class UsuarioController {
     @Operation(
             summary = "Criar usuário",
             description = "Cria um novo usuário do sistema.",
+            security = { @SecurityRequirement(name = "bearerAuth") },
             responses = {
                     @ApiResponse(responseCode = "201", description = "Usuário criado com sucesso",
                             content = @Content(schema = @Schema(implementation = UsuarioResponse.class))),
                     @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content),
+                    @ApiResponse(responseCode = "403", description = "Sem permissão", content = @Content),
                     @ApiResponse(responseCode = "409", description = "Usuário já cadastrado", content = @Content),
                     @ApiResponse(responseCode = "500", description = "Erro interno", content = @Content)
             }
     )
     @PostMapping
+    @PreAuthorize("hasAuthority('USUARIO_CRIAR')")
     public ResponseEntity<?> create(@Valid @RequestBody UsuarioRequest usuarioRequest) {
         try {
             UsuarioResponse response = criarUsuarioUseCase.execute(usuarioRequest);
@@ -95,6 +98,7 @@ public class UsuarioController {
     )
 
     @GetMapping
+    @PreAuthorize("hasAuthority('USUARIO_LISTAR')")
     public ResponseEntity<?> findAll(
             @RequestParam(required = false) String nmUsuario,
             @RequestParam(required = false, defaultValue = "1") Integer usuarioAtivo
@@ -130,6 +134,7 @@ public class UsuarioController {
             }
     )
     @GetMapping("/{cdUsuario}")
+    @PreAuthorize("hasAuthority('USUARIO_LISTAR')")
     public ResponseEntity<?> findById(@PathVariable Integer cdUsuario) {
         try {
             return ResponseEntity.ok(buscarUsuarioByIdUseCase.execute(cdUsuario));
@@ -161,6 +166,7 @@ public class UsuarioController {
             }
     )
     @PostMapping("/update")
+    @PreAuthorize("hasAuthority('USUARIO_EDITAR')")
     public ResponseEntity<?> update(@Valid @RequestBody UsuarioRequest usuarioRequest) {
         try {
             UsuarioResponse response = atualizarUsuarioUseCase.execute(usuarioRequest);
@@ -193,16 +199,11 @@ public class UsuarioController {
             }
     )
     @DeleteMapping("/{cdUsuario}")
+    @PreAuthorize("hasAuthority('USUARIO_DELETAR')")
     public ResponseEntity<?> delete(@Valid @PathVariable Integer cdUsuario) {
         try {
             DeleteUsuarioResponse response = deletarUsuarioUseCase.execute(cdUsuario);
             return ResponseEntity.ok(response);
-        } catch (AcessoNegadoException ex) {
-            ErrorResponse error = new ErrorResponse(
-                    ex.getMessage(),
-                    LocalDateTime.now()
-            );
-            return ResponseEntity.status(403).body(error);
         } catch (BusinessException ex) {
             ErrorResponse error = new ErrorResponse(
                     ex.getMessage(),

@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import com.system.fisio.application.dto.UsuarioFiltro;
-import com.system.fisio.domain.enums.AtivoInativoEnum;
-import com.system.fisio.domain.enums.TipoUsuario;
+import com.system.fisio.application.dto.UsuarioResponse;
+import com.system.fisio.application.mapper.UsuarioMapper;
 import com.system.fisio.domain.model.Usuario;
 import com.system.fisio.domain.ports.IUsuarioRepository;
 import com.system.fisio.infrastructure.persistence.entity.UsuarioEntity;
@@ -14,30 +14,30 @@ import com.system.fisio.infrastructure.persistence.query.QueryResult;
 import com.system.fisio.infrastructure.ports.IUsuarioQuery;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import com.system.fisio.application.dto.UsuarioResponse;
-
-import java.sql.Timestamp;
 
 @Repository
 public class UsuarioRepositoryImpl implements IUsuarioRepository {
-    
+
     private final UsuarioJpaRepository jpaRepository;
     private final UsuarioPersistenceMapper mapper;
     private final IUsuarioQuery usuarioQuery;
     private final JdbcTemplate jdbcTemplate;
+    private final UsuarioMapper usuarioMapper;
 
     public UsuarioRepositoryImpl(
         UsuarioJpaRepository jpaRepository,
         UsuarioPersistenceMapper mapper,
         IUsuarioQuery usuarioQuery,
-        JdbcTemplate jdbcTemplate
+        JdbcTemplate jdbcTemplate,
+        UsuarioMapper usuarioMapper
     ) {
         this.jpaRepository = jpaRepository;
         this.mapper = mapper;
         this.usuarioQuery = usuarioQuery;
         this.jdbcTemplate = jdbcTemplate;
+        this.usuarioMapper = usuarioMapper;
     }
-    
+
     @Override
     public Usuario save(Usuario usuario) {
         UsuarioEntity usuarioEntity = mapper.toEntity(usuario);
@@ -63,22 +63,21 @@ public class UsuarioRepositoryImpl implements IUsuarioRepository {
         QueryResult result = usuarioQuery.findAllByFiltro(filtro);
         Object[] params = result.getParams() != null ? result.getParams().toArray(new Object[0]) : new Object[0];
 
-        return jdbcTemplate.query(
+        // A query só filtra IDs; o resto (incluindo roles, via @ManyToMany EAGER)
+        // vem do JPA para reaproveitar o mesmo mapeamento usado em todo o resto do
+        // módulo em vez de duplicar a lógica de montagem de UsuarioResponse aqui.
+        List<Integer> ids = jdbcTemplate.query(
                 result.getSql().toString(),
                 params,
-                (rs, rowNum) -> {
-                    Timestamp dtCadastro = rs.getTimestamp("dt_cadastro");
-                    return new UsuarioResponse(
-                            rs.getInt("cd_usuario"),
-                            rs.getString("nm_usuario"),
-                            rs.getString("email"),
-                            rs.getString("login"),
-                            AtivoInativoEnum.fromCodigo(rs.getObject("st_usuario", Integer.class)),
-                            TipoUsuario.fromCodigo(rs.getObject("tp_usuario", Integer.class)),
-                            dtCadastro != null ? dtCadastro.toLocalDateTime() : null
-                    );
-                }
+                (rs, rowNum) -> rs.getInt("cd_usuario")
         );
+
+        return ids.stream()
+                .map(jpaRepository::findById)
+                .flatMap(Optional::stream)
+                .map(mapper::toDomain)
+                .map(usuarioMapper::toResponse)
+                .toList();
     }
 
     @Override

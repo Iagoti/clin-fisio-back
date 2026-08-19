@@ -5,6 +5,7 @@ import com.system.fisio.infrastructure.security.JwtService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -14,6 +15,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
 
+// Habilita @PreAuthorize nos controllers — a autenticação (é/não é um usuário
+// válido) continua sendo decidida abaixo por authorizeHttpRequests; a autorização
+// fina (quais permissões o endpoint exige) vive nas anotações @PreAuthorize.
+@EnableMethodSecurity
 @Configuration
 public class SecurityConfig {
 
@@ -29,7 +34,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/usuario/**").authenticated()
-                        .requestMatchers(HttpMethod.DELETE, "/usuario/**").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/usuario/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(new JwtAuthFilter(jwtService), UsernamePasswordAuthenticationFilter.class)

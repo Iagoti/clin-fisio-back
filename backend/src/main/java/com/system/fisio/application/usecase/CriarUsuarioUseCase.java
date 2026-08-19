@@ -2,14 +2,12 @@ package com.system.fisio.application.usecase;
 
 import com.system.fisio.application.mapper.UsuarioMapper;
 import com.system.fisio.domain.exception.UsuarioException;
-import com.system.fisio.domain.exception.AcessoNegadoException;
 import com.system.fisio.domain.model.Usuario;
 import com.system.fisio.domain.ports.IUsuarioRepository;
 import com.system.fisio.application.dto.UsuarioRequest;
 import com.system.fisio.application.dto.UsuarioResponse;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 @Component
 public class CriarUsuarioUseCase {
@@ -28,11 +26,9 @@ public class CriarUsuarioUseCase {
         this.usuarioMapper = usuarioMapper;
     }
 
+    // Autorização (quem pode criar usuário) é responsabilidade da camada HTTP
+    // (@PreAuthorize em UsuarioController), não deste caso de uso.
     public UsuarioResponse execute(UsuarioRequest usuarioRequest) {
-        var auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth == null || auth.getAuthorities().stream().noneMatch(a -> "ROLE_ADM".equals(a.getAuthority()))) {
-            throw new AcessoNegadoException("Acesso negado: você não tem permissão para cadastrar usuários");
-        }
         if (usuarioRepository.findByEmail(usuarioRequest.getEmail()).isPresent()) {
             throw new UsuarioException("Usuário já cadastrado");
         }
@@ -43,7 +39,7 @@ public class CriarUsuarioUseCase {
                 usuarioRequest.getLogin(),
                 passwordEncoder.encode(usuarioRequest.getSenha()),
                 usuarioRequest.getStUsuario(),
-                usuarioRequest.getTipo()
+                usuarioRequest.getCdRoles()
         );
         Usuario usuario = usuarioRepository.save(usuarioMapper.toDomain(requestEncodedPassword));
         return usuarioMapper.toResponse(usuario);

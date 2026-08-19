@@ -1,3 +1,5 @@
 package com.system.fisio.application.dto;
 
-public record LoginResponse(String token, Integer tpUsuario, Integer cdUsuario, String nmUsuario) {}
+import java.util.Set;
+
+public record LoginResponse(String token, Set<String> roles, Integer cdUsuario, String nmUsuario) {}

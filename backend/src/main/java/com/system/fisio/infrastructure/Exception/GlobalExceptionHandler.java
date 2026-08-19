@@ -4,6 +4,7 @@ import com.system.fisio.domain.exception.BusinessException;
 import com.system.fisio.infrastructure.dto.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -21,7 +22,19 @@ public class GlobalExceptionHandler {
                 ex.getMessage(),
                 LocalDateTime.now()
         );
-        return ResponseEntity.status(ex.hashCode()).body(response);
+        return ResponseEntity.status(ex.httpStatus()).body(response);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ErrorResponse> handleAccessDeniedException(
+            AccessDeniedException ex,
+            HttpServletRequest request
+    ) {
+        ErrorResponse response = new ErrorResponse(
+                "Acesso negado: você não tem permissão para executar esta ação",
+                LocalDateTime.now()
+        );
+        return ResponseEntity.status(403).body(response);
     }
 
     @ExceptionHandler(Exception.class)

@@ -1,15 +1,22 @@
 package com.system.fisio.domain;
 
 import com.system.fisio.domain.enums.AtivoInativoEnum;
-import com.system.fisio.domain.enums.TipoUsuario;
 import com.system.fisio.domain.exception.UsuarioException;
+import com.system.fisio.domain.model.Permissao;
+import com.system.fisio.domain.model.Role;
 import com.system.fisio.domain.model.Usuario;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
+import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UsuarioTest {
+
+    private Role roleAdministrador() {
+        Permissao permissao = new Permissao(1, "USUARIO_LISTAR", "Listar usuários", "USUARIO");
+        return new Role(1, "ADMINISTRADOR", "Acesso total", AtivoInativoEnum.ATIVO, true, Set.of(permissao), null);
+    }
 
     private Usuario criarUsuarioValido() {
         return new Usuario(
@@ -18,7 +25,7 @@ class UsuarioTest {
                 "joao@email.com",
                 "joao",
                 "123456",
-                TipoUsuario.ADM,
+                Set.of(roleAdministrador()),
                 AtivoInativoEnum.ATIVO
         );
     }
@@ -30,7 +37,7 @@ class UsuarioTest {
 
         assertEquals("João Silva", usuario.getNmUsuario());
         assertEquals("joao", usuario.getLogin());
-        assertEquals(TipoUsuario.ADM, usuario.getTpUsuario());
+        assertEquals(Set.of("ADMINISTRADOR"), usuario.getNomesRoles());
         assertEquals(AtivoInativoEnum.ATIVO, usuario.getStUsuario());
         assertNotNull(usuario.getDataCadastro());
     }
@@ -87,7 +94,7 @@ class UsuarioTest {
     @DisplayName("Deve lançar exceção quando nome for nulo")
     void deveFalharQuandoNomeNulo() {
         assertThrows(UsuarioException.class, () ->
-                new Usuario(1, null, "email@email.com", "login", "123", TipoUsuario.ADM, AtivoInativoEnum.ATIVO)
+                new Usuario(1, null, "email@email.com", "login", "123", Set.of(roleAdministrador()), AtivoInativoEnum.ATIVO)
         );
     }
 
@@ -95,7 +102,7 @@ class UsuarioTest {
     @DisplayName("Deve lançar exceção quando login for vazio")
     void deveFalharQuandoLoginVazio() {
         assertThrows(UsuarioException.class, () ->
-                new Usuario(1, "João", "email@email.com", "", "123", TipoUsuario.ADM, AtivoInativoEnum.ATIVO)
+                new Usuario(1, "João", "email@email.com", "", "123", Set.of(roleAdministrador()), AtivoInativoEnum.ATIVO)
         );
     }
 
@@ -103,16 +110,24 @@ class UsuarioTest {
     @DisplayName("Deve lançar exceção quando senha for nula")
     void deveFalharQuandoSenhaNula() {
         assertThrows(UsuarioException.class, () ->
-                new Usuario(null, "João", "email@email.com", "login", null, TipoUsuario.ADM, AtivoInativoEnum.ATIVO)
+                new Usuario(null, "João", "email@email.com", "login", null, Set.of(roleAdministrador()), AtivoInativoEnum.ATIVO)
         );
     }
 
     @Test
-    @DisplayName("Deve lançar exceção quando tipo for nulo")
-    void deveFalharQuandoTipoNulo() {
+    @DisplayName("Deve lançar exceção quando usuário não tem nenhum perfil")
+    void deveFalharQuandoSemRoles() {
         assertThrows(UsuarioException.class, () ->
-                new Usuario(1, "João", "email@email.com", "login", "123", null, AtivoInativoEnum.ATIVO)
+                new Usuario(1, "João", "email@email.com", "login", "123", Set.of(), AtivoInativoEnum.ATIVO)
         );
     }
-}
 
+    @Test
+    @DisplayName("Deve verificar permissão efetiva a partir das roles do usuário")
+    void devePossuirPermissaoDasRoles() {
+        Usuario usuario = criarUsuarioValido();
+
+        assertTrue(usuario.possuiPermissao("USUARIO_LISTAR"));
+        assertFalse(usuario.possuiPermissao("FINANCEIRO_QUALQUER_COISA"));
+    }
+}

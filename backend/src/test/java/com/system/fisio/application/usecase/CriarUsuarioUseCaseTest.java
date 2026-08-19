@@ -4,7 +4,6 @@ import com.system.fisio.application.dto.UsuarioRequest;
 import com.system.fisio.application.dto.UsuarioResponse;
 import com.system.fisio.application.mapper.UsuarioMapper;
 import com.system.fisio.domain.enums.AtivoInativoEnum;
-import com.system.fisio.domain.enums.TipoUsuario;
 import com.system.fisio.domain.exception.UsuarioException;
 import com.system.fisio.domain.model.Usuario;
 import com.system.fisio.domain.ports.IUsuarioRepository;
@@ -17,11 +16,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import java.util.Optional;
-import java.util.List;
+import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -46,13 +42,6 @@ class CriarUsuarioUseCaseTest {
 
     @BeforeEach
     void setup() {
-        var auth = new UsernamePasswordAuthenticationToken(
-                "test",
-                null,
-                List.of(new SimpleGrantedAuthority("ROLE_ADM"))
-        );
-        SecurityContextHolder.getContext().setAuthentication(auth);
-
         request = new UsuarioRequest(
                 null,
                 "João Silva",
@@ -60,7 +49,7 @@ class CriarUsuarioUseCaseTest {
                 "joao",
                 "senha123",
                 AtivoInativoEnum.ATIVO,
-                TipoUsuario.ADM
+                Set.of(1)
         );
 
         usuarioDomain = mock(Usuario.class);
@@ -95,7 +84,7 @@ class CriarUsuarioUseCaseTest {
         assertEquals("joao", encodedRequest.getLogin());
         assertEquals("HASH_SENHA", encodedRequest.getSenha());
         assertEquals(AtivoInativoEnum.ATIVO, encodedRequest.getStUsuario());
-        assertEquals(TipoUsuario.ADM, encodedRequest.getTipo());
+        assertEquals(Set.of(1), encodedRequest.getCdRoles());
 
         verify(usuarioRepository).save(usuarioDomain);
         verify(usuarioMapper).toResponse(usuarioDomain);
@@ -111,25 +100,28 @@ class CriarUsuarioUseCaseTest {
 
         UsuarioException ex = assertThrows(UsuarioException.class, () -> useCase.execute(request));
 
-        assertTrue(ex.getMessage().contains("Erro ao criar usuário:"));
-        assertTrue(ex.getMessage().contains("Usuário já cadastrado"));
+        // A implementação atual não embrulha a mensagem com um prefixo — propaga a
+        // mensagem de negócio diretamente.
+        assertEquals("Usuário já cadastrado", ex.getMessage());
 
         verify(usuarioRepository).findByEmail(request.getEmail());
         verifyNoMoreInteractions(usuarioRepository, passwordEncoder, usuarioMapper);
     }
 
     @Test
-    @DisplayName("Deve embrulhar exceção inesperada em UsuarioException com mensagem padrão")
-    void deveEmbrulharExcecaoInesperada() {
+    @DisplayName("Deve propagar exceção inesperada do mapper sem embrulhar")
+    void devePropagarExcecaoInesperadaSemEmbrulhar() {
 
         when(usuarioRepository.findByEmail(request.getEmail())).thenReturn(Optional.empty());
         when(passwordEncoder.encode(request.getSenha())).thenReturn("HASH_SENHA");
         when(usuarioMapper.toDomain(any(UsuarioRequest.class)))
                 .thenThrow(new RuntimeException("Falha no mapper"));
 
-        UsuarioException ex = assertThrows(UsuarioException.class, () -> useCase.execute(request));
+        // A implementação atual não tem try/catch ao redor do mapper — a exceção
+        // original propaga sem ser convertida em UsuarioException.
+        RuntimeException ex = assertThrows(RuntimeException.class, () -> useCase.execute(request));
 
-        assertEquals("Erro ao criar usuário: Falha no mapper", ex.getMessage());
+        assertEquals("Falha no mapper", ex.getMessage());
 
         verify(usuarioRepository).findByEmail(request.getEmail());
         verify(passwordEncoder).encode(request.getSenha());

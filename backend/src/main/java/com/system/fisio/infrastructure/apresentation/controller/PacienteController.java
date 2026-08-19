@@ -28,6 +28,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -73,6 +74,7 @@ public class PacienteController {
                     content = @Content(schema = @Schema(implementation = PacienteResponse.class)))
     })
     @PostMapping
+    @PreAuthorize("hasAuthority('PACIENTE_CRIAR')")
     public ResponseEntity<?> create(@Valid @RequestBody PacienteRequest request) {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(criarPacienteUseCase.execute(request));
@@ -85,6 +87,7 @@ public class PacienteController {
 
     @Operation(summary = "Listar pacientes")
     @GetMapping
+    @PreAuthorize("hasAuthority('PACIENTE_LISTAR')")
     public ResponseEntity<?> findAll(
             @RequestParam(required = false) String nmPaciente,
             @RequestParam(required = false) String cpf,
@@ -102,6 +105,7 @@ public class PacienteController {
 
     @Operation(summary = "Buscar paciente por ID")
     @GetMapping("/{cdPaciente}")
+    @PreAuthorize("hasAuthority('PACIENTE_LISTAR')")
     public ResponseEntity<?> findById(@PathVariable Integer cdPaciente) {
         try {
             return ResponseEntity.ok(buscarPacienteByIdUseCase.execute(cdPaciente));
@@ -114,6 +118,7 @@ public class PacienteController {
 
     @Operation(summary = "Atualizar paciente")
     @PostMapping("/update")
+    @PreAuthorize("hasAuthority('PACIENTE_EDITAR')")
     public ResponseEntity<?> update(@Valid @RequestBody PacienteRequest request) {
         try {
             return ResponseEntity.ok(atualizarPacienteUseCase.execute(request));
@@ -126,6 +131,7 @@ public class PacienteController {
 
     @Operation(summary = "Baixar/visualizar arquivo do termo de responsabilidade")
     @GetMapping("/{cdPaciente}/termo/arquivo")
+    @PreAuthorize("hasAuthority('PACIENTE_TERMO_DOWNLOAD')")
     public ResponseEntity<?> baixarArquivoTermo(@PathVariable Integer cdPaciente) {
         try {
             ArquivoTermoResponse arquivo = buscarArquivoTermoPacienteUseCase.execute(cdPaciente);
@@ -155,6 +161,7 @@ public class PacienteController {
                     content = @Content(schema = @Schema(implementation = DeletePacienteResponse.class)))
     })
     @DeleteMapping("/{cdPaciente}")
+    @PreAuthorize("hasAuthority('PACIENTE_DELETAR')")
     public ResponseEntity<?> delete(@PathVariable Integer cdPaciente) {
         try {
             return ResponseEntity.ok(deletarPacienteUseCase.execute(cdPaciente));

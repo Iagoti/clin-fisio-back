@@ -1,8 +1,8 @@
 package com.system.fisio.application.dto;
 
 import com.system.fisio.domain.enums.AtivoInativoEnum;
-import com.system.fisio.domain.enums.TipoUsuario;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 public class UsuarioRequest {
     private Integer cdUsuario;
@@ -11,7 +11,7 @@ public class UsuarioRequest {
     private String login;
     private String senha;
     private AtivoInativoEnum stUsuario;
-    private TipoUsuario tipo;
+    private Set<Integer> cdRoles;
     private LocalDateTime dataCadastro;
 
     public UsuarioRequest() {
@@ -25,7 +25,7 @@ public class UsuarioRequest {
             String login,
             String senha,
             AtivoInativoEnum stUsuario,
-            TipoUsuario tipo
+            Set<Integer> cdRoles
     ) {
         this.cdUsuario = cdUsuario;
         this.nome = nome;
@@ -33,7 +33,7 @@ public class UsuarioRequest {
         this.login = login;
         this.senha = senha;
         this.stUsuario = stUsuario;
-        this.tipo = tipo;
+        this.cdRoles = cdRoles;
         this.dataCadastro = LocalDateTime.now();
     }
 
@@ -85,12 +85,12 @@ public class UsuarioRequest {
         this.stUsuario = stUsuario;
     }
 
-    public TipoUsuario getTipo() {
-        return tipo;
+    public Set<Integer> getCdRoles() {
+        return cdRoles;
     }
 
-    public void setTipo(TipoUsuario tipo) {
-        this.tipo = tipo;
+    public void setCdRoles(Set<Integer> cdRoles) {
+        this.cdRoles = cdRoles;
     }
 
     public LocalDateTime getDataCadastro() {

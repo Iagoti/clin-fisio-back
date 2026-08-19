@@ -1,8 +1,8 @@
 package com.system.fisio.application.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import com.system.fisio.domain.enums.AtivoInativoEnum;
-import com.system.fisio.domain.enums.TipoUsuario;
 
 public class UsuarioResponse {
 
@@ -11,19 +11,19 @@ public class UsuarioResponse {
     private String email;
     private String login;
     private AtivoInativoEnum stUsuario;
-    private TipoUsuario tpUsuario;
+    private List<RoleResumoResponse> roles;
     private LocalDateTime dtCadastro;
 
     public UsuarioResponse() { }
 
     public UsuarioResponse(Integer cdUsuario, String nmUsuario, String email, String login, AtivoInativoEnum stUsuario,
-            TipoUsuario tpUsuario, LocalDateTime dtCadastro) {
+            List<RoleResumoResponse> roles, LocalDateTime dtCadastro) {
         this.cdUsuario = cdUsuario;
         this.nmUsuario = nmUsuario;
         this.email = email;
         this.login = login;
         this.stUsuario = stUsuario;
-        this.tpUsuario = tpUsuario;
+        this.roles = roles;
         this.dtCadastro = dtCadastro;
     }
 
@@ -67,12 +67,12 @@ public class UsuarioResponse {
         this.stUsuario = stUsuario;
     }
 
-    public TipoUsuario getTpUsuario() {
-        return tpUsuario;
+    public List<RoleResumoResponse> getRoles() {
+        return roles;
     }
 
-    public void setTpUsuario(TipoUsuario tpUsuario) {
-        this.tpUsuario = tpUsuario;
+    public void setRoles(List<RoleResumoResponse> roles) {
+        this.roles = roles;
     }
 
     public LocalDateTime getDtCadastro() {
